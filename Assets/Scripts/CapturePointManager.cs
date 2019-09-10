@@ -18,6 +18,7 @@ public class CapturePointManager : MonoBehaviour
     private GameObject particleToSpawn;
 
     private LineRenderer outlineParticle;
+    private Vector3 outlineStartPosition;
 
     private void Awake()
     {
@@ -28,6 +29,7 @@ public class CapturePointManager : MonoBehaviour
         redScoreText.GetComponent<Text>().text = redScoreValue.ToString();
 
         outlineParticle = transform.GetComponentInChildren<LineRenderer>();
+        outlineStartPosition = outlineParticle.gameObject.transform.position;
     }
 
 
@@ -71,27 +73,52 @@ public class CapturePointManager : MonoBehaviour
         }
     }
 
-    void UpdateLineRendererColour()
+    void UpdateLineRenderer()
     {
-        int redCharactersOnPoint = 0;
-        int blueCharactersOnPoint = 0;
-        foreach (GameObject character in charactersOnCapturePoint)
+        if (charactersOnCapturePoint.Count > 0)
         {
-            if(character.tag == "BlueTeam")
+            int redCharactersOnPoint = 0;
+            int blueCharactersOnPoint = 0;
+            foreach (GameObject character in charactersOnCapturePoint)
             {
-                blueCharactersOnPoint++;
+                if (character.tag == "BlueTeam")
+                {
+                    blueCharactersOnPoint++;
+                }
+                else
+                {
+                    redCharactersOnPoint++;
+                }
             }
-            else
-            {
-                redCharactersOnPoint++;
-            }
+
+            float avg = 0.5f;
+            avg -= redCharactersOnPoint / 20f;
+            avg += blueCharactersOnPoint / 20f;
+            var c = g.Evaluate(Mathf.Clamp01(avg));
+            outlineParticle.startColor = new Color(c.r, c.g, c.b, outlineParticle.startColor.a);
+            outlineParticle.endColor = new Color(c.r, c.g, c.b, outlineParticle.endColor.a);
+        }
+        else
+        {
+            outlineParticle.startColor = new Color(0.5f,0.5f,0.5f,outlineParticle.startColor.a);
+            outlineParticle.endColor = new Color(0.5f, 0.5f, 0.5f, outlineParticle.endColor.a);
         }
 
-        float avg = 0.5f;
-        avg -= redCharactersOnPoint / 20f;
-        avg += blueCharactersOnPoint / 20f;
-        var c = g.Evaluate(Mathf.Clamp01(avg));
-        outlineParticle.startColor = new Color(outlineParticle.startColor.r + redCharactersOnPoint * (20f / byte.MaxValue), outlineParticle.startColor.g, outlineParticle.startColor.b + blueCharactersOnPoint * (20f / byte.MaxValue));
+        //change alpha
+        outlineParticle.startColor -= new Color(0, 0, 0, 0.3f*Time.deltaTime);
+        outlineParticle.endColor -= new Color(0, 0, 0, 0.3f*Time.deltaTime);
+
+
+        //handle upwards movement
+        if (outlineParticle.gameObject.transform.position.y > outlineStartPosition.y + 2.8f)
+        {
+            outlineParticle.gameObject.transform.position = outlineStartPosition;
+            outlineParticle.startColor += new Color(0, 0, 0, 1);
+            outlineParticle.endColor += new Color(0, 0, 0, 1);
+        }
+
+        outlineParticle.gameObject.transform.position += new Vector3(0, 1 * Time.deltaTime, 0);
+
     }
 
 
@@ -99,6 +126,7 @@ public class CapturePointManager : MonoBehaviour
     private void Update()
     {
         AddToScoreValues();
+        UpdateLineRenderer();
     }
 
 }

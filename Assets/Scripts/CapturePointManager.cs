@@ -7,7 +7,7 @@ public class CapturePointManager : MonoBehaviour
 {
     public List<GameObject> charactersOnCapturePoint = new List<GameObject>();
 
-    public Gradient g;
+    public Gradient controlGradient;
     public float blueScoreValue;
     public float redScoreValue;
 
@@ -19,6 +19,10 @@ public class CapturePointManager : MonoBehaviour
 
     private LineRenderer outlineParticle;
     private Vector3 outlineStartPosition;
+
+    public float outlineParticleSpeed;
+    public float outlineParticleAlphaFadeRate;
+    public float outlineParticleMaxHeight;
 
     private void Awake()
     {
@@ -91,42 +95,64 @@ public class CapturePointManager : MonoBehaviour
                 }
             }
 
-            float avg = 0.5f;
-            avg -= redCharactersOnPoint / 20f;
-            avg += blueCharactersOnPoint / 20f;
-            var c = g.Evaluate(Mathf.Clamp01(avg));
-            outlineParticle.startColor = new Color(c.r, c.g, c.b, outlineParticle.startColor.a);
-            outlineParticle.endColor = new Color(c.r, c.g, c.b, outlineParticle.endColor.a);
+            float controlAvg = 0.5f;
+            controlAvg -= redCharactersOnPoint / 20f;
+            controlAvg += blueCharactersOnPoint / 20f;
+            var currentControlColour = controlGradient.Evaluate(Mathf.Clamp01(controlAvg));
+
+            outlineParticle.startColor = SetColourWithoutChangingAlpha(currentControlColour, outlineParticle.startColor);
+            outlineParticle.endColor = SetColourWithoutChangingAlpha(currentControlColour, outlineParticle.endColor);
         }
         else
         {
-            outlineParticle.startColor = new Color(0.5f,0.5f,0.5f,outlineParticle.startColor.a);
-            outlineParticle.endColor = new Color(0.5f, 0.5f, 0.5f, outlineParticle.endColor.a);
+            outlineParticle.startColor = SetColourWithoutChangingAlpha(Color.white * 0.8f , outlineParticle.startColor);
+            outlineParticle.endColor = SetColourWithoutChangingAlpha(Color.white * 0.8f, outlineParticle.endColor);
         }
 
-        //change alpha
-        outlineParticle.startColor -= new Color(0, 0, 0, 0.3f*Time.deltaTime);
-        outlineParticle.endColor -= new Color(0, 0, 0, 0.3f*Time.deltaTime);
+        //gradually fade out the alpha of the lineRenderer
+        outlineParticle.startColor -= new Color(0, 0, 0, outlineParticleAlphaFadeRate * Time.deltaTime);
+        outlineParticle.endColor -= new Color(0, 0, 0, outlineParticleAlphaFadeRate * Time.deltaTime);
 
 
-        //handle upwards movement
-        if (outlineParticle.gameObject.transform.position.y > outlineStartPosition.y + 2.8f)
+        //if the y position of the particle exceeds it's starting position plus the max height I want it to travel
+        if (outlineParticle.gameObject.transform.position.y > outlineStartPosition.y + outlineParticleMaxHeight)
         {
+            //set the particle back to it's starting position
             outlineParticle.gameObject.transform.position = outlineStartPosition;
-            outlineParticle.startColor += new Color(0, 0, 0, 1);
-            outlineParticle.endColor += new Color(0, 0, 0, 1);
+
+            //reset it's alpha value to 1 but retain it's rgb values
+            outlineParticle.startColor = SetColourWithoutChangingAlpha(outlineParticle.startColor, Color.grey);
+            outlineParticle.endColor = SetColourWithoutChangingAlpha(outlineParticle.endColor, Color.grey);
         }
 
-        outlineParticle.gameObject.transform.position += new Vector3(0, 1 * Time.deltaTime, 0);
+        //move the particle up by a given speed
+        outlineParticle.gameObject.transform.position += new Vector3(0, outlineParticleSpeed * Time.deltaTime, 0);
 
     }
 
-
+    //returns a colour that has the rgb values of the first argument but also the alpha value of the second argument
+    public Color SetColourWithoutChangingAlpha(Color rgbToKeep, Color alphaToKeep)
+    {
+        return new Color(rgbToKeep.r, rgbToKeep.g, rgbToKeep.b, alphaToKeep.a);
+    }
 
     private void Update()
     {
         AddToScoreValues();
         UpdateLineRenderer();
     }
+
+}
+
+
+public static class ColorExtensions
+{
+    public static Color AccelerateAlpha(this Color color, float accelValue)
+    {
+        color.a -= accelValue;
+        return color;
+    }
+
+    
 
 }

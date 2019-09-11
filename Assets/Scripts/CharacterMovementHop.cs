@@ -26,7 +26,7 @@ public class CharacterMovementHop : MonoBehaviour
         if(parentBody.GetComponent<Rigidbody>().velocity.x != 0 || parentBody.GetComponent<Rigidbody>().velocity.z != 0)
         {
             Vector3 targetVector = new Vector3(transform.localPosition.x, groundedHeight + hopHeight, transform.localPosition.z);
-            transform.localPosition = Vector3.Lerp(new Vector3(transform.localPosition.x, groundedHeight, transform.localPosition.z), targetVector, Mathf.PingPong(Time.time * hopRate, 1));
+            transform.localPosition = Vector3.Lerp(new Vector3(transform.localPosition.x, groundedHeight, transform.localPosition.z), targetVector, Mathf.PingPong(Mathf.Sin(Time.time * hopRate), 1));
         }
         else
         {

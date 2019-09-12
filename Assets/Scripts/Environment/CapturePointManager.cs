@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class CapturePointManager : MonoBehaviour
 {
+    private static CapturePointManager instance;
+
     public List<GameObject> charactersOnCapturePoint = new List<GameObject>();
 
     public Gradient controlGradient;
@@ -19,6 +21,7 @@ public class CapturePointManager : MonoBehaviour
 
     private LineRenderer outlineParticle;
     private Vector3 outlineStartPosition;
+    private Collider pointCollider;
 
     public float outlineParticleSpeed;
     public float outlineParticleAlphaFadeRate;
@@ -26,6 +29,8 @@ public class CapturePointManager : MonoBehaviour
 
     private void Awake()
     {
+        pointCollider = GetComponent<Collider>();
+
         blueScoreValue = 0;
         redScoreValue = 0;
 
@@ -36,10 +41,19 @@ public class CapturePointManager : MonoBehaviour
         outlineStartPosition = outlineParticle.gameObject.transform.position;
     }
 
+    private void OnEnable()
+    {
+        instance = this;
+    }
+
+    public static bool ObjectiveContainsVector(Vector3 position)
+    {
+        return instance.pointCollider.bounds.Contains(position);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "BlueTeam" || other.gameObject.tag == "RedTeam")
+        if (other.gameObject.tag == "BlueTeam" || other.gameObject.tag == "RedTeam")
         {
             charactersOnCapturePoint.Add(other.gameObject);
         }
@@ -60,7 +74,7 @@ public class CapturePointManager : MonoBehaviour
             foreach (GameObject character in charactersOnCapturePoint)
             {
                 if (character.tag == "BlueTeam")
-                {                  
+                {
                     blueScoreValue++;
                     particleToSpawn = Instantiate(scoreOnePointParticle, character.transform.position, Quaternion.identity);
                     particleToSpawn.GetComponent<PointScoreParticleBehaviour>().onBlueTeam = true;
@@ -105,7 +119,7 @@ public class CapturePointManager : MonoBehaviour
         }
         else
         {
-            outlineParticle.startColor = SetColourWithoutChangingAlpha(Color.white * 0.8f , outlineParticle.startColor);
+            outlineParticle.startColor = SetColourWithoutChangingAlpha(Color.white * 0.8f, outlineParticle.startColor);
             outlineParticle.endColor = SetColourWithoutChangingAlpha(Color.white * 0.8f, outlineParticle.endColor);
         }
 
@@ -153,6 +167,6 @@ public static class ColorExtensions
         return color;
     }
 
-    
+
 
 }

@@ -12,7 +12,11 @@ public class CharacterMovementHop : MonoBehaviour
 
     private GameObject parentBody;
 
-    public float testValue;
+    private float hopTValue;
+
+    Vector3 targetVector;
+
+    private float timeSpentHopping;
 
     private void Awake()
     {
@@ -25,18 +29,23 @@ public class CharacterMovementHop : MonoBehaviour
     {
         if(parentBody.GetComponent<Rigidbody>().velocity.x != 0 || parentBody.GetComponent<Rigidbody>().velocity.z != 0)
         {
-            Vector3 targetVector = new Vector3(transform.localPosition.x, groundedHeight + hopHeight, transform.localPosition.z);
-            transform.localPosition = Vector3.Lerp(new Vector3(transform.localPosition.x, groundedHeight, transform.localPosition.z), targetVector, Mathf.PingPong(Mathf.Sin(Time.time * hopRate), 1));
+            timeSpentHopping += Time.deltaTime; 
+            targetVector = new Vector3(transform.localPosition.x, groundedHeight + hopHeight, transform.localPosition.z);
+            hopTValue = Mathf.PingPong(Mathf.Sin(timeSpentHopping * hopRate), 1);
+            transform.localPosition = Vector3.Lerp(new Vector3(transform.localPosition.x, groundedHeight, transform.localPosition.z), targetVector, hopTValue);
         }
-        else
+        else if (hopTValue != 0)
         {
-            transform.localPosition = new Vector3(transform.localPosition.x, groundedHeight, transform.localPosition.z);
+            timeSpentHopping = 0;
+            hopTValue -= Mathf.Clamp(Mathf.Sin(Time.deltaTime * hopRate), 0,1);
+            targetVector = new Vector3(transform.localPosition.x, groundedHeight + hopHeight, transform.localPosition.z);
+            transform.localPosition = Vector3.Lerp(new Vector3(transform.localPosition.x, groundedHeight, transform.localPosition.z), targetVector, hopTValue);
         }
+        
     }
 
     private void Update()
     {
-        parentBody.GetComponent<Rigidbody>().velocity = new Vector3(testValue, 0, 0);
         Hop();
     }
 

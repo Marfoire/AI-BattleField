@@ -7,33 +7,64 @@ public class CharacterAdvanceState : StateBehaviour
 {
 
     public Vector3 pointToTravelTo;
-    public float turnSpeed;
-    public float moveSpeed;
+    private Rigidbody rb;
+    private GameObject visionRangeObject;
+    private Blackboard bb;
 
     private void Start()
     {
-        CapturePointManager.ObjectiveContainsVector(GetComponent<Rigidbody>().position);
+        rb = GetComponent<Rigidbody>();
+        bb = GetComponent<Blackboard>();
+
+        visionRangeObject = bb.GetGameObjectVar("visionRange").Value;
+
+        GetAPositionToMoveTo();
     }
 
     public void MoveToGoal()
     {
-        Vector3.RotateTowards(transform.forward, (pointToTravelTo - transform.position).normalized, turnSpeed, 0);
-        GetComponent<Rigidbody>().velocity = (transform.forward * moveSpeed) * Time.fixedDeltaTime;
+
+        if (rb.position != pointToTravelTo)
+        {
+            rb.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, (pointToTravelTo - rb.position).normalized, bb.GetFloatVar("turnSpeed").Value * Time.fixedDeltaTime, 0), Vector3.up);
+            rb.velocity = transform.forward * (bb.GetFloatVar("moveSpeed").Value * Time.fixedDeltaTime) ;
+        }
+
+        if (bb.GetBoolVar("atObjective"))
+        {
+            if (GetComponent<Collider>().bounds.Contains(pointToTravelTo))
+            {
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+                SendEvent("ArrivedAtPoint");
+            }
+        }
+
     }
 
-    // Called when the state is enabled
-    void OnEnable () {
-		Debug.Log("Started *State*");
-	}
- 
-	// Called when the state is disabled
-	void OnDisable () {
-		Debug.Log("Stopped *State*");
-	}
+    public void IsItTimeToAggro()
+    {
+        visionRangeObject.GetComponent<ScanSightArea>().CleanNullCharactersFromTargetList();
+        if (visionRangeObject.GetComponent<ScanSightArea>().targetsInRange.Count != 0)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            SendEvent("EnemySighted");
+        }
+    }
+
+    
+
+    public void GetAPositionToMoveTo()
+    {
+        pointToTravelTo = CapturePointManager.GetRandomPositionOnObjective(rb.position);
+    }
 	
-	// Update is called once per frame
-	void Update () {
-	
+
+	void FixedUpdate ()
+    {
+        MoveToGoal();
+        IsItTimeToAggro();
 	}
 }
 

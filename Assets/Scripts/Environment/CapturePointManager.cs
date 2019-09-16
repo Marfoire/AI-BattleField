@@ -51,6 +51,14 @@ public class CapturePointManager : MonoBehaviour
         return instance.pointCollider.bounds.Contains(position);
     }
 
+    public static Vector3 GetRandomPositionOnObjective(Vector3 characterVector)
+    {
+        Vector3 maxBounds = instance.pointCollider.bounds.max;
+        Vector3 minBounds = instance.pointCollider.bounds.min;
+        return new Vector3(Random.Range(maxBounds.x, minBounds.x), characterVector.y, Random.Range(maxBounds.z, minBounds.z));
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "BlueTeam" || other.gameObject.tag == "RedTeam")
@@ -67,10 +75,18 @@ public class CapturePointManager : MonoBehaviour
         }
     }
 
+    private void CleanNullCharactersFromObjectiveList()
+    {
+        charactersOnCapturePoint.RemoveAll(character => character == null);
+    }
+
+
+
     private void AddToScoreValues()
     {
         if (Time.frameCount % 60 == 0)
         {
+            
             foreach (GameObject character in charactersOnCapturePoint)
             {
                 if (character.tag == "BlueTeam")
@@ -93,6 +109,7 @@ public class CapturePointManager : MonoBehaviour
 
     void UpdateLineRenderer()
     {
+        
         if (charactersOnCapturePoint.Count > 0)
         {
             int redCharactersOnPoint = 0;
@@ -152,6 +169,7 @@ public class CapturePointManager : MonoBehaviour
 
     private void Update()
     {
+        CleanNullCharactersFromObjectiveList();
         AddToScoreValues();
         UpdateLineRenderer();
     }

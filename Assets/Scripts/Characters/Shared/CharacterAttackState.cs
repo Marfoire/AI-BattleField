@@ -5,35 +5,108 @@ using BehaviourMachine;
 
 public class CharacterAttackState : StateBehaviour
 {
-    public Vector3 pointToTravelTo;
-    public float turnSpeed;
-    public float moveSpeed;
+
+
+    private Rigidbody rb;
+    private Blackboard bb;
+
+    private GameObject visionRangeObject;
+    private GameObject attackRangeObject;
+    public GameObject targettedEnemy;
+
+    private float lowestSqrMagnitude;
+
+    private float attackStartTime;
 
     private void Start()
     {
-        CapturePointManager.ObjectiveContainsVector(GetComponent<Rigidbody>().position);
+        rb = GetComponent<Rigidbody>();
+        bb = GetComponent<Blackboard>();
+
+
+        visionRangeObject = bb.GetGameObjectVar("visionRange").Value;
+        attackRangeObject = bb.GetGameObjectVar("attackRange").Value;
+
+        lowestSqrMagnitude = float.PositiveInfinity;
     }
 
-    public void MoveToGoal()
+    public void ChargeAtEnemy()
     {
-        Vector3.RotateTowards(transform.forward, (pointToTravelTo - transform.position).normalized, turnSpeed, 0);
-        GetComponent<Rigidbody>().velocity = transform.forward * moveSpeed;
+        if (targettedEnemy)
+        {
+            rb.angularVelocity = Vector3.zero;
+            rb.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, (targettedEnemy.GetComponent<Rigidbody>().position - rb.position).normalized, bb.GetFloatVar("turnSpeed").Value * Time.fixedDeltaTime, 0), Vector3.up);
+
+            if (!attackRangeObject.GetComponent<ScanSightArea>().targetsInRange.Contains(targettedEnemy))
+            {
+                rb.velocity = transform.forward * (bb.GetFloatVar("moveSpeed").Value * Time.fixedDeltaTime);
+            }
+            else
+            {
+                AttackTarget();
+            }
+        }
     }
 
-    // Called when the state is enabled
-    void OnEnable () {
-		Debug.Log("Started *State*");
-	}
- 
-	// Called when the state is disabled
-	void OnDisable () {
-		Debug.Log("Stopped *State*");
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public void IsAreaClearOfEnemies()
+    {
+        visionRangeObject.GetComponent<ScanSightArea>().CleanNullCharactersFromTargetList();
+        attackRangeObject.GetComponent<ScanSightArea>().CleanNullCharactersFromTargetList();
+        if (visionRangeObject.GetComponent<ScanSightArea>().targetsInRange.Count == 0)
+        {
+            if (bb.GetBoolVar("atObjective"))
+            {
+                rb.angularVelocity = Vector3.zero;
+                rb.velocity = Vector3.zero;
+                SendEvent("ObjectiveIsClear");
+            }
+            else
+            {
+                rb.angularVelocity = Vector3.zero;
+                rb.velocity = Vector3.zero;
+                SendEvent("MoveToPoint");
+            }
+        }
+    }
+
+    public void TargetTheClosestEnemy()
+    {
+        visionRangeObject.GetComponent<ScanSightArea>().CleanNullCharactersFromTargetList();
+        attackRangeObject.GetComponent<ScanSightArea>().CleanNullCharactersFromTargetList();
+
+        if (targettedEnemy == null)
+        {
+            lowestSqrMagnitude = float.PositiveInfinity;
+        }
+
+        foreach (GameObject potentialTarget in visionRangeObject.GetComponent<ScanSightArea>().targetsInRange)
+        {
+            if(lowestSqrMagnitude > Vector3.SqrMagnitude(rb.position - potentialTarget.GetComponent<Rigidbody>().position))
+            {
+                lowestSqrMagnitude = Vector3.SqrMagnitude(rb.position - potentialTarget.GetComponent<Rigidbody>().position);
+                targettedEnemy = potentialTarget;
+            }            
+        }
+    }
+
+    public void AttackTarget()
+    {
+        rb.angularVelocity = Vector3.zero;
+        rb.velocity = Vector3.zero;
+        if (attackStartTime + bb.GetFloatVar("attackSpeedInSeconds") < Time.fixedTime)
+        {
+            attackStartTime = Time.fixedTime;
+            targettedEnemy.GetComponent<HPValueHandler>().TakeDamage();
+        }
+    }
+
+
+    void FixedUpdate()
+    {
+        IsAreaClearOfEnemies();
+        TargetTheClosestEnemy();
+        ChargeAtEnemy();        
+    }
 }
 
 

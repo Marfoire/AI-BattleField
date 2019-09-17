@@ -56,7 +56,7 @@ public class ClericHealState : StateBehaviour
     public void IsItTimeToPanic()
     {
         visionRangeObject.GetComponent<ScanSightArea>().CleanNullCharactersFromTargetList();
-        if (visionRangeObject.GetComponent<ScanSightArea>().targetsInRange.Count == 0)
+        if (visionRangeObject.GetComponent<ScanSightArea>().targetsInRange.Count == 0 || !visionRangeObject.GetComponent<ScanSightArea>().targetsInRange.Exists(character => character.GetComponent<Blackboard>().GetStringVar("characterClass").Value != "Cleric"))
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;

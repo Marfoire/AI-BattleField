@@ -37,7 +37,7 @@ public class ClericPanicState : StateBehaviour
         turnSpeed = bb.GetFloatVar("turnSpeed");
         moveSpeed = bb.GetFloatVar("moveSpeed");
 
-        newRotationVector = new Vector3(0, Random.Range(0, 1), 0);
+        newRotationVector = new Vector3(Random.Range(-180, 180), transform.position.y, Random.Range(-180, 180));
 
         GetComponentInChildren<ParticleSystem>().Play();
     }
@@ -47,6 +47,7 @@ public class ClericPanicState : StateBehaviour
 
     void Panic()
     {
+        rb.angularVelocity = Vector3.zero;
         if (lastRotationStartTime + timeUntilNextRotationChange < Time.fixedTime) {
             newRotationVector = new Vector3(Random.Range(-180,180), transform.position.y, Random.Range(-180, 180));
             lastRotationStartTime = Time.time;

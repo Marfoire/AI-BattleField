@@ -312,7 +312,7 @@ MonoBehaviour:
   m_HideScript: 1
   m_Position: {x: 0, y: 0}
   m_Transitions: []
-  m_CachedInstanceID: -185030
+  m_CachedInstanceID: -330130
   m_Description: 
   m_EnabledState: {fileID: 0}
   m_LastEnabledState: {fileID: 0}
@@ -333,14 +333,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Blackboard: {fileID: 917435554140773723}
   m_Parent: {fileID: 4106570524665889351}
-  m_StateName: ClericPanicState
+  m_StateName: Panicking
   m_Color: 0
   m_HideScript: 1
   m_Position: {x: 360, y: 60}
   m_Transitions:
   - m_Destination: {fileID: 254216644}
     m_EventID: 1955140616
-  m_CachedInstanceID: -185032
+  m_CachedInstanceID: -330132
   timeUntilNextRotationChange: 0
 --- !u!114 &254216643
 MonoBehaviour:
@@ -356,7 +356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Blackboard: {fileID: 917435554140773723}
   m_Parent: {fileID: 4106570524665889351}
-  m_StateName: ClericHealState
+  m_StateName: Healing
   m_Color: 0
   m_HideScript: 1
   m_Position: {x: 70, y: 230}
@@ -365,7 +365,7 @@ MonoBehaviour:
     m_EventID: 1991535403
   - m_Destination: {fileID: 254216644}
     m_EventID: 57797762
-  m_CachedInstanceID: -185034
+  m_CachedInstanceID: -330134
 --- !u!114 &254216644
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -380,7 +380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Blackboard: {fileID: 917435554140773723}
   m_Parent: {fileID: 4106570524665889351}
-  m_StateName: ClericFollowState
+  m_StateName: Following
   m_Color: 0
   m_HideScript: 1
   m_Position: {x: 70, y: 60}
@@ -389,7 +389,7 @@ MonoBehaviour:
     m_EventID: 1991535403
   - m_Destination: {fileID: 254216643}
     m_EventID: 1319943141
-  m_CachedInstanceID: -185036
+  m_CachedInstanceID: -330136
 --- !u!136 &5706283912798758045
 CapsuleCollider:
   m_ObjectHideFlags: 0

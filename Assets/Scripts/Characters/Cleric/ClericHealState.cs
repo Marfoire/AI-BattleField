@@ -68,13 +68,14 @@ public class ClericHealState : StateBehaviour
     public void FindAFriend()
     {
         healRangeObject.GetComponent<ScanSightArea>().CleanNullCharactersFromTargetList();
+        visionRangeObject.GetComponent<ScanSightArea>().CleanNullCharactersFromTargetList();
 
         if (targettedFriend.Value == null)
         {
             lowestHPRatio = 2;
         }
 
-        foreach (GameObject potentialTarget in healRangeObject.GetComponent<ScanSightArea>().targetsInRange)
+        foreach (GameObject potentialTarget in visionRangeObject.GetComponent<ScanSightArea>().targetsInRange)
         {
             HPValueHandler hpScript = potentialTarget.GetComponent<HPValueHandler>();
             if (hpScript.myHP / hpScript.maxHP < lowestHPRatio)
@@ -83,6 +84,15 @@ public class ClericHealState : StateBehaviour
                 targettedFriend.Value = potentialTarget;
             }
         }
+
+        if (targettedFriend.Value != null)
+        {
+            if (!healRangeObject.GetComponent<ScanSightArea>().targetsInRange.Contains(targettedFriend.Value) && targettedFriend.Value.GetComponent<Blackboard>().GetStringVar("characterClass").Value != "Cleric")
+            {
+                SendEvent("EveryoneIsHealthy");
+            }
+        }
+
     }
 
     public void HealMyFriend()

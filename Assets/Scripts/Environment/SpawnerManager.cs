@@ -44,7 +44,7 @@ public class SpawnerManager : MonoBehaviour
         {
             Vector3 maxBounds = GetComponent<Collider>().bounds.max;
             Vector3 minBounds = GetComponent<Collider>().bounds.min;
-            Vector3 spawnPosition = new Vector3(Random.Range(maxBounds.x, minBounds.x), transform.position.y, Random.Range(maxBounds.z, minBounds.z));
+            Vector3 spawnPosition = new Vector3(Random.Range(minBounds.x, maxBounds.x), transform.position.y, Random.Range(minBounds.z, maxBounds.z));
             GameObject characterToBeSpawned = Instantiate(characterPrefab, spawnPosition, Quaternion.identity);
             characterList.Add(characterToBeSpawned);
             characterToBeSpawned.tag = spawnerTeam;
@@ -57,13 +57,13 @@ public class SpawnerManager : MonoBehaviour
 
     private void SpawnCharacters(List<GameObject> characterList, GameObject characterPrefab)
     {
-        for(int i = 0; i < characterList.Capacity; i++)
+        for(int i = 0; i < characterList.Capacity - 1; i++)
         {
             if(characterList[i] == null)
             {
                 Vector3 maxBounds = GetComponent<Collider>().bounds.max;
                 Vector3 minBounds = GetComponent<Collider>().bounds.min;
-                Vector3 spawnPosition = new Vector3(Random.Range(maxBounds.x, minBounds.x), transform.position.y, Random.Range(maxBounds.z, minBounds.z));
+                Vector3 spawnPosition = new Vector3(Random.Range(minBounds.x, maxBounds.x), transform.position.y, Random.Range(minBounds.z, maxBounds.z));
                 GameObject characterToBeSpawned = Instantiate(characterPrefab, spawnPosition, Quaternion.identity);
                 characterList[i] = characterToBeSpawned;
                 characterToBeSpawned.tag = spawnerTeam;
@@ -78,25 +78,21 @@ public class SpawnerManager : MonoBehaviour
         {
             characterList.Capacity = spawnCap;
 
-            Vector3 maxBounds = GetComponent<Collider>().bounds.max;
-            Vector3 minBounds = GetComponent<Collider>().bounds.min;
-            Vector3 spawnPosition = new Vector3(Random.Range(maxBounds.x, minBounds.x), transform.position.y, Random.Range(maxBounds.x, minBounds.x));
-
-            characterList.Add(Instantiate(characterPrefab, spawnPosition, Quaternion.identity) as GameObject);
+            InitializeSpawns(knights, knightPrefab);
+            InitializeSpawns(clerics, clericPrefab);
+            InitializeSpawns(archers, archerPrefab);
+            InitializeSpawns(ninjas, ninjaPrefab);
         }
     }
 
 
     private void Update()
     {
-        if(lastSpawnTime + spawnWaveInterval < Time.time)
+
+        if (lastSpawnTime + spawnWaveInterval < Time.time)
         {
             lastSpawnTime = Time.time;
 
-            CorrectSpawnCaps(knights, knightSpawnLimit, knightPrefab);
-            CorrectSpawnCaps(clerics, clericSpawnLimit, clericPrefab);
-            CorrectSpawnCaps(archers, archerSpawnLimit, archerPrefab);
-            CorrectSpawnCaps(ninjas, ninjaSpawnLimit, ninjaPrefab);            
 
             SpawnCharacters(knights, knightPrefab);
             SpawnCharacters(clerics, clericPrefab);

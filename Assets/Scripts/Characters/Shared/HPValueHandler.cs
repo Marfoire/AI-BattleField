@@ -7,10 +7,14 @@ public class HPValueHandler : MonoBehaviour
 {
 
     public float myHP;
+    public float maxHP;
+    public GameObject healParticles;
+    public GameObject hurtParticles;
 
     void Awake()
     {
         myHP = GetComponent<Blackboard>().GetFloatVar("hpValue").Value;
+        maxHP = myHP;
     }
 
     void UpdateHPVar()
@@ -21,12 +25,14 @@ public class HPValueHandler : MonoBehaviour
     public void TakeDamage()
     {
         myHP--;
+        Instantiate(hurtParticles, transform);
         UpdateHPVar();
     }
 
     public void HealHp()
     {
         myHP++;
+        Instantiate(healParticles, transform);
         UpdateHPVar();
     }
 

@@ -19,7 +19,7 @@ public class ClericFollowState : StateBehaviour
     private float lowestHPRatio;
 
     public BoolVar iWasJustPanicking;
-    
+    private BoolVar inMotion;
     
 
     private void OnEnable()
@@ -31,6 +31,7 @@ public class ClericFollowState : StateBehaviour
         healRangeObject = bb.GetGameObjectVar("healRange").Value;
 
         iWasJustPanicking = bb.GetBoolVar("wasIPanicking");
+        inMotion = bb.GetBoolVar("inMotion");
 
         turnSpeed = bb.GetFloatVar("turnSpeed");
         moveSpeed = bb.GetFloatVar("moveSpeed");
@@ -44,6 +45,7 @@ public class ClericFollowState : StateBehaviour
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
+            inMotion.Value = true;
             SendEvent("ImAllAlone");
         }
     }
@@ -83,6 +85,8 @@ public class ClericFollowState : StateBehaviour
             Vector3 pointToMoveTo = new Vector3(targettedFriend.GetComponent<Rigidbody>().position.x, rb.position.y, targettedFriend.GetComponent<Rigidbody>().position.z);
             rb.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, (pointToMoveTo - rb.position).normalized, turnSpeed.Value * Time.fixedDeltaTime, 0), Vector3.up);
 
+            inMotion.Value = true;
+
             if (iWasJustPanicking.Value)
             {
                 rb.velocity = transform.forward * (moveSpeed.Value * 1.5f * Time.fixedDeltaTime);
@@ -96,7 +100,7 @@ public class ClericFollowState : StateBehaviour
             if (healRangeObject.GetComponent<ScanSightArea>().targetsInRange.Contains(targettedFriend)) {
 
                 iWasJustPanicking.Value = false;
-
+                inMotion.Value = false;
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
 

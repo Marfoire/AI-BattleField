@@ -11,6 +11,7 @@ public class CharacterAdvanceState : StateBehaviour
     private GameObject visionRangeObject;
     private Blackboard bb;
     private FloatVar turnSpeed, moveSpeed;
+    private BoolVar inMotion;
 
     private void OnEnable()
     {
@@ -22,6 +23,8 @@ public class CharacterAdvanceState : StateBehaviour
 
         visionRangeObject = bb.GetGameObjectVar("visionRange").Value;
 
+        inMotion = bb.GetBoolVar("inMotion");
+
         GetAPositionToMoveTo();
     }
 
@@ -30,8 +33,9 @@ public class CharacterAdvanceState : StateBehaviour
         rb.angularVelocity = Vector3.zero;
         if (rb.position != pointToTravelTo)
         {
+            inMotion.Value = true;
             rb.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, (pointToTravelTo - rb.position).normalized, turnSpeed.Value * Time.fixedDeltaTime, 0), Vector3.up);
-            rb.velocity = transform.forward * (moveSpeed.Value * Time.fixedDeltaTime) ;
+            rb.velocity = transform.forward * (moveSpeed.Value * Time.fixedDeltaTime);
         }
 
         if (bb.GetBoolVar("atObjective"))
@@ -40,6 +44,7 @@ public class CharacterAdvanceState : StateBehaviour
             {
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
+                inMotion.Value = false;
                 SendEvent("ArrivedAtPoint");
             }
         }

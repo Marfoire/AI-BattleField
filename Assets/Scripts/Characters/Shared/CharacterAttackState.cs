@@ -14,6 +14,8 @@ public class CharacterAttackState : StateBehaviour
     private GameObject attackRangeObject;
     public GameObject targettedEnemy;
 
+    private BoolVar inMotion;
+
     private float lowestSqrMagnitude;
 
     private float attackStartTime;
@@ -27,6 +29,8 @@ public class CharacterAttackState : StateBehaviour
         visionRangeObject = bb.GetGameObjectVar("visionRange").Value;
         attackRangeObject = bb.GetGameObjectVar("attackRange").Value;
 
+        inMotion = bb.GetBoolVar("inMotion");
+
     }
 
     public void ChargeAtEnemy()
@@ -38,6 +42,7 @@ public class CharacterAttackState : StateBehaviour
 
             if (!attackRangeObject.GetComponent<ScanSightArea>().targetsInRange.Contains(targettedEnemy))
             {
+                inMotion.Value = true;
                 rb.velocity = transform.forward * (bb.GetFloatVar("moveSpeed").Value * Time.fixedDeltaTime);
             }
             else
@@ -57,6 +62,7 @@ public class CharacterAttackState : StateBehaviour
             {
                 rb.angularVelocity = Vector3.zero;
                 rb.velocity = Vector3.zero;
+                inMotion.Value = false;
                 SendEvent("ObjectiveIsClear");
             }
             else
@@ -92,13 +98,13 @@ public class CharacterAttackState : StateBehaviour
     {
         rb.angularVelocity = Vector3.zero;
         rb.velocity = Vector3.zero;
+        inMotion.Value = false;
         if (attackStartTime + bb.GetFloatVar("attackSpeedInSeconds") < Time.fixedTime)
         {
             attackStartTime = Time.fixedTime;
             targettedEnemy.GetComponent<HPValueHandler>().TakeDamage();
         }
     }
-
 
     void FixedUpdate()
     {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BehaviourMachine;
 
 public class CharacterMovementHop : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class CharacterMovementHop : MonoBehaviour
 
     void Hop()
     {
-        if(parentBody.GetComponent<Rigidbody>().velocity.x != 0 || parentBody.GetComponent<Rigidbody>().velocity.z != 0)
+        if(transform.parent.GetComponent<Blackboard>().GetBoolVar("inMotion").Value == true)
         {
             timeSpentHopping += Time.deltaTime; 
             targetVector = new Vector3(transform.localPosition.x, groundedHeight + hopHeight, transform.localPosition.z);

@@ -22,6 +22,7 @@ public class ClericHealState : StateBehaviour
     private float lowestHPRatio;
 
     public BoolVar iWasJustPanicking;
+    private BoolVar inMotion;
 
 
 
@@ -34,6 +35,9 @@ public class ClericHealState : StateBehaviour
         healRangeObject = bb.GetGameObjectVar("healRange").Value;
 
         iWasJustPanicking = bb.GetBoolVar("wasIPanicking");
+
+        inMotion = bb.GetBoolVar("inMotion");
+        inMotion.Value = false;
 
         turnSpeed = bb.GetFloatVar("turnSpeed");
         moveSpeed = bb.GetFloatVar("moveSpeed");
@@ -52,6 +56,7 @@ public class ClericHealState : StateBehaviour
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
+            inMotion.Value = true;
             SendEvent("ImAllAlone");
         }
     }

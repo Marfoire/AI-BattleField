@@ -164,9 +164,9 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 2
   m_Constraints: 84
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &3134753672825867193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,8 +179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba7982e24d6d8549b919e47955b40f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myHP: 6
-  maxHP: 6
+  myHP: 5
+  maxHP: 5
   healParticles: {fileID: 7524022093268800722, guid: 2a9bc7560be83314ab17cf5d462a1da0,
     type: 3}
   hurtParticles: {fileID: 1908043831131882855, guid: bbdbcfcde80c44e4da5312473f824d85,
@@ -202,7 +202,7 @@ MonoBehaviour:
     m_Name: hpValue
     m_Blackboard: {fileID: 917435554140773723}
     m_IsConstant: 0
-    value: 10
+    value: 5
   - m_ID: 1788787990
     m_Name: moveSpeed
     m_Blackboard: {fileID: 917435554140773723}
@@ -232,6 +232,11 @@ MonoBehaviour:
   m_BoolVars:
   - m_ID: 1224648496
     m_Name: wasIPanicking
+    m_Blackboard: {fileID: 917435554140773723}
+    m_IsConstant: 0
+    value: 0
+  - m_ID: 1878342190
+    m_Name: inMotion
     m_Blackboard: {fileID: 917435554140773723}
     m_IsConstant: 0
     value: 0
@@ -307,7 +312,7 @@ MonoBehaviour:
   m_HideScript: 1
   m_Position: {x: 0, y: 0}
   m_Transitions: []
-  m_CachedInstanceID: -772536
+  m_CachedInstanceID: -1342602
   m_Description: 
   m_EnabledState: {fileID: 0}
   m_LastEnabledState: {fileID: 0}
@@ -335,7 +340,7 @@ MonoBehaviour:
   m_Transitions:
   - m_Destination: {fileID: 254216644}
     m_EventID: 1955140616
-  m_CachedInstanceID: -772538
+  m_CachedInstanceID: -1342604
   timeUntilNextRotationChange: 0
 --- !u!114 &254216643
 MonoBehaviour:
@@ -360,7 +365,7 @@ MonoBehaviour:
     m_EventID: 1991535403
   - m_Destination: {fileID: 254216644}
     m_EventID: 57797762
-  m_CachedInstanceID: -772540
+  m_CachedInstanceID: -1342606
 --- !u!114 &254216644
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -384,7 +389,7 @@ MonoBehaviour:
     m_EventID: 1991535403
   - m_Destination: {fileID: 254216643}
     m_EventID: 1319943141
-  m_CachedInstanceID: -772542
+  m_CachedInstanceID: -1342608
 --- !u!136 &5706283912798758045
 CapsuleCollider:
   m_ObjectHideFlags: 0

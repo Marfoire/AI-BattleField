@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 913300157443569657}
   - component: {fileID: 913300157443569659}
-  - component: {fileID: 913300157443569658}
   - component: {fileID: 1522943432383403800}
   - component: {fileID: 3156462993815532587}
   - component: {fileID: 292361504550877299}
   - component: {fileID: 8151357904390769071}
+  - component: {fileID: 7416453974278983892}
   m_Layer: 0
   m_Name: Archer
   m_TagString: BlueTeam
@@ -52,22 +52,9 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 2
   m_Constraints: 84
-  m_CollisionDetection: 0
---- !u!65 &913300157443569658
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 913300157443569656}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.6653779, y: 3.3706193, z: 1.6651629}
-  m_Center: {x: 0.0011899471, y: 0.85315585, z: -0.0011920333}
+  m_CollisionDetection: 3
 --- !u!114 &1522943432383403800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,8 +67,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba7982e24d6d8549b919e47955b40f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myHP: 5
-  maxHP: 0
+  myHP: 7
+  maxHP: 7
   healParticles: {fileID: 7524022093268800722, guid: 2a9bc7560be83314ab17cf5d462a1da0,
     type: 3}
   hurtParticles: {fileID: 1908043831131882855, guid: bbdbcfcde80c44e4da5312473f824d85,
@@ -103,7 +90,7 @@ MonoBehaviour:
     m_Name: hpValue
     m_Blackboard: {fileID: 3156462993815532587}
     m_IsConstant: 0
-    value: 10
+    value: 7
   - m_ID: 1922040590
     m_Name: moveSpeed
     m_Blackboard: {fileID: 3156462993815532587}
@@ -123,6 +110,11 @@ MonoBehaviour:
   m_BoolVars:
   - m_ID: 1329191729
     m_Name: atObjective
+    m_Blackboard: {fileID: 3156462993815532587}
+    m_IsConstant: 0
+    value: 0
+  - m_ID: 1661835697
+    m_Name: inMotion
     m_Blackboard: {fileID: 3156462993815532587}
     m_IsConstant: 0
     value: 0
@@ -152,7 +144,17 @@ MonoBehaviour:
   m_ObjectVars: []
   m_DynamicLists: []
   m_FsmEvents: []
-  m_ConcreteFsmEvents: []
+  m_ConcreteFsmEvents:
+  - m_ID: 417753800
+    m_Name: EnemySighted
+    m_Blackboard: {fileID: 3156462993815532587}
+    m_IsConstant: 0
+    m_IsSystem: 0
+  - m_ID: 1174631713
+    m_Name: ArrivedAtPoint
+    m_Blackboard: {fileID: 3156462993815532587}
+    m_IsConstant: 0
+    m_IsSystem: 0
   m_Namespace: 
 --- !u!114 &292361504550877299
 MonoBehaviour:
@@ -173,7 +175,7 @@ MonoBehaviour:
   m_HideScript: 1
   m_Position: {x: 0, y: 0}
   m_Transitions: []
-  m_CachedInstanceID: -376566
+  m_CachedInstanceID: -1343148
   m_Description: 
   m_EnabledState: {fileID: 0}
   m_LastEnabledState: {fileID: 0}
@@ -192,6 +194,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eebe12d65829114eb5fe88f3bfc1f8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &7416453974278983892
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913300157443569656}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.02
+  m_Height: 3.85
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.1, z: 0}
 --- !u!1 &913300158164281148
 GameObject:
   m_ObjectHideFlags: 0

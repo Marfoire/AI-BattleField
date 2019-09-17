@@ -19,15 +19,30 @@ public class CharacterMovementHop : MonoBehaviour
 
     private float timeSpentHopping;
 
+    private float startingHopValue;
+
     private void Awake()
     {
         parentBody = transform.parent.gameObject;
         groundedHeight = transform.localPosition.y;
+        startingHopValue = hopRate;
     }
 
 
     void Hop()
     {
+        if(parentBody.GetComponent<Blackboard>().GetStringVar("characterClass") == "Cleric")
+        {
+            if (parentBody.GetComponent<Blackboard>().GetBoolVar("wasIPanicking"))
+            {
+                hopRate = startingHopValue * 2;
+            }
+            else
+            {
+                hopRate = startingHopValue;
+            }
+        }
+
         if(transform.parent.GetComponent<Blackboard>().GetBoolVar("inMotion").Value == true)
         {
             timeSpentHopping += Time.deltaTime; 

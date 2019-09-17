@@ -10,11 +10,15 @@ public class CharacterAdvanceState : StateBehaviour
     private Rigidbody rb;
     private GameObject visionRangeObject;
     private Blackboard bb;
+    private FloatVar turnSpeed, moveSpeed;
 
-    private void Start()
+    private void OnEnable()
     {
         rb = GetComponent<Rigidbody>();
         bb = GetComponent<Blackboard>();
+
+        turnSpeed = bb.GetFloatVar("turnSpeed");
+        moveSpeed = bb.GetFloatVar("moveSpeed");
 
         visionRangeObject = bb.GetGameObjectVar("visionRange").Value;
 
@@ -23,11 +27,11 @@ public class CharacterAdvanceState : StateBehaviour
 
     public void MoveToGoal()
     {
-
+        rb.angularVelocity = Vector3.zero;
         if (rb.position != pointToTravelTo)
         {
-            rb.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, (pointToTravelTo - rb.position).normalized, bb.GetFloatVar("turnSpeed").Value * Time.fixedDeltaTime, 0), Vector3.up);
-            rb.velocity = transform.forward * (bb.GetFloatVar("moveSpeed").Value * Time.fixedDeltaTime) ;
+            rb.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, (pointToTravelTo - rb.position).normalized, turnSpeed.Value * Time.fixedDeltaTime, 0), Vector3.up);
+            rb.velocity = transform.forward * (moveSpeed.Value * Time.fixedDeltaTime) ;
         }
 
         if (bb.GetBoolVar("atObjective"))

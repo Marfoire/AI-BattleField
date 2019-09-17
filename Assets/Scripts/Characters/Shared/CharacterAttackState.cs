@@ -18,7 +18,7 @@ public class CharacterAttackState : StateBehaviour
 
     private float attackStartTime;
 
-    private void Start()
+    private void OnEnable()
     {
         rb = GetComponent<Rigidbody>();
         bb = GetComponent<Blackboard>();
@@ -27,7 +27,6 @@ public class CharacterAttackState : StateBehaviour
         visionRangeObject = bb.GetGameObjectVar("visionRange").Value;
         attackRangeObject = bb.GetGameObjectVar("attackRange").Value;
 
-        lowestSqrMagnitude = float.PositiveInfinity;
     }
 
     public void ChargeAtEnemy()
@@ -76,7 +75,7 @@ public class CharacterAttackState : StateBehaviour
 
         if (targettedEnemy == null)
         {
-            lowestSqrMagnitude = float.PositiveInfinity;
+            lowestSqrMagnitude = 10000000000;
         }
 
         foreach (GameObject potentialTarget in visionRangeObject.GetComponent<ScanSightArea>().targetsInRange)

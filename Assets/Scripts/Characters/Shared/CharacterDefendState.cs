@@ -8,7 +8,7 @@ public class CharacterDefendState : StateBehaviour
     private Rigidbody rb;
     private GameObject visionRangeObject;
 
-    private void Start()
+    private void OnEnable()
     {
         rb = GetComponent<Rigidbody>();
         visionRangeObject = GetComponent<Blackboard>().GetGameObjectVar("visionRange").Value;

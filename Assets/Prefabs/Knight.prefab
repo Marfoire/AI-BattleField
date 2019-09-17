@@ -120,6 +120,20 @@ MonoBehaviour:
   tagToScanFor: RedTeam
   imACleric: 0
   targetsInRange: []
+--- !u!114 &7447501548031583516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8886007053609662473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31889f66bd8db4b448ec7a4a2d8f0c2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blueTexture: {fileID: 2100000, guid: a525d4d22b04fdd48906b830d181a048, type: 2}
+  redTexture: {fileID: 2100000, guid: 8afd5a56d1afa784090fb3893ba4e50a, type: 2}
 --- !u!114 &8886007052578925188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,7 +159,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8886007053962651852}
   - component: {fileID: 8886007053962651854}
-  - component: {fileID: 8886007053962651855}
   - component: {fileID: 8886007053576034271}
   - component: {fileID: 8886007053576034272}
   - component: {fileID: 8886007053576034273}
@@ -154,6 +167,7 @@ GameObject:
   - component: {fileID: 8886007053576034276}
   - component: {fileID: 2306655352262685392}
   - component: {fileID: 5145803179184125070}
+  - component: {fileID: 7525260271842174443}
   m_Layer: 0
   m_Name: Knight
   m_TagString: BlueTeam
@@ -192,21 +206,8 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
---- !u!65 &8886007053962651855
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8886007053962651853}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.6653779, y: 3.3706193, z: 1.6651629}
-  m_Center: {x: 0.0011899471, y: 0.85315585, z: -0.0011920333}
 --- !u!114 &8886007053576034271
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -232,7 +233,8 @@ MonoBehaviour:
     m_EventID: 568027102
   - m_Destination: {fileID: 8886007053576034273}
     m_EventID: 1497637566
-  m_CachedInstanceID: -72760
+  m_CachedInstanceID: -772268
+  targettedEnemy: {fileID: 0}
 --- !u!114 &8886007053576034272
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -258,7 +260,7 @@ MonoBehaviour:
     m_EventID: 568027102
   - m_Destination: {fileID: 8886007053576034273}
     m_EventID: 1497637566
-  m_CachedInstanceID: -72762
+  m_CachedInstanceID: -772270
 --- !u!114 &8886007053576034273
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -284,7 +286,7 @@ MonoBehaviour:
     m_EventID: 765540588
   - m_Destination: {fileID: 8886007053576034274}
     m_EventID: 608135493
-  m_CachedInstanceID: -72764
+  m_CachedInstanceID: -772272
   pointToTravelTo: {x: 0, y: 0, z: 0}
 --- !u!114 &8886007053576034274
 MonoBehaviour:
@@ -309,7 +311,7 @@ MonoBehaviour:
     m_EventID: 1063056756
   - m_Destination: {fileID: 8886007053576034272}
     m_EventID: 765540588
-  m_CachedInstanceID: -72766
+  m_CachedInstanceID: -772274
 --- !u!114 &8886007053576034275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,7 +331,7 @@ MonoBehaviour:
   m_HideScript: 1
   m_Position: {x: 0, y: 0}
   m_Transitions: []
-  m_CachedInstanceID: -72768
+  m_CachedInstanceID: -772276
   m_Description: 
   m_EnabledState: {fileID: 0}
   m_LastEnabledState: {fileID: 0}
@@ -376,7 +378,12 @@ MonoBehaviour:
     m_Blackboard: {fileID: 8886007053576034276}
     m_IsConstant: 0
     value: 0
-  m_StringVars: []
+  m_StringVars:
+  - m_ID: 1760956507
+    m_Name: characterClass
+    m_Blackboard: {fileID: 8886007053576034276}
+    m_IsConstant: 0
+    value: Knight
   m_Vector3Vars: []
   m_RectVars: []
   m_ColorVars: []
@@ -437,6 +444,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myHP: 0
+  maxHP: 0
+  healParticles: {fileID: 7524022093268800722, guid: 2a9bc7560be83314ab17cf5d462a1da0,
+    type: 3}
+  hurtParticles: {fileID: 1908043831131882855, guid: bbdbcfcde80c44e4da5312473f824d85,
+    type: 3}
 --- !u!114 &5145803179184125070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,6 +461,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eebe12d65829114eb5fe88f3bfc1f8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &7525260271842174443
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8886007053962651853}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.02
+  m_Height: 3.85
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.1, z: 0}
 --- !u!1001 &8886007053609696937
 PrefabInstance:
   m_ObjectHideFlags: 0

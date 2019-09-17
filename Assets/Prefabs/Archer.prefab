@@ -80,7 +80,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba7982e24d6d8549b919e47955b40f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myHP: 0
+  myHP: 5
+  maxHP: 0
+  healParticles: {fileID: 7524022093268800722, guid: 2a9bc7560be83314ab17cf5d462a1da0,
+    type: 3}
+  hurtParticles: {fileID: 1908043831131882855, guid: bbdbcfcde80c44e4da5312473f824d85,
+    type: 3}
 --- !u!114 &3156462993815532587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,7 +126,12 @@ MonoBehaviour:
     m_Blackboard: {fileID: 3156462993815532587}
     m_IsConstant: 0
     value: 0
-  m_StringVars: []
+  m_StringVars:
+  - m_ID: 127508108
+    m_Name: characterClass
+    m_Blackboard: {fileID: 3156462993815532587}
+    m_IsConstant: 0
+    value: Archer
   m_Vector3Vars: []
   m_RectVars: []
   m_ColorVars: []
@@ -163,7 +173,7 @@ MonoBehaviour:
   m_HideScript: 1
   m_Position: {x: 0, y: 0}
   m_Transitions: []
-  m_CachedInstanceID: -55566
+  m_CachedInstanceID: -376566
   m_Description: 
   m_EnabledState: {fileID: 0}
   m_LastEnabledState: {fileID: 0}

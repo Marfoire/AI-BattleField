@@ -31,9 +31,12 @@ public class HPValueHandler : MonoBehaviour
 
     public void HealHp()
     {
-        myHP++;
-        Instantiate(healParticles, transform);
-        UpdateHPVar();
+        if (myHP != maxHP)
+        {
+            myHP++;
+            Instantiate(healParticles, transform);
+            UpdateHPVar();
+        }
     }
 
     private void Update()

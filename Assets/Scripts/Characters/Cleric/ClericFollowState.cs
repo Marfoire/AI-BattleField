@@ -14,7 +14,7 @@ public class ClericFollowState : StateBehaviour
     private GameObject visionRangeObject;
     private GameObject healRangeObject;
 
-    private GameObject targettedFriend;
+    private GameObjectVar targettedFriend;
 
     private float lowestHPRatio;
 
@@ -27,6 +27,8 @@ public class ClericFollowState : StateBehaviour
         rb = GetComponent<Rigidbody>();
         bb = GetComponent<Blackboard>();
 
+        targettedFriend = bb.GetGameObjectVar("healTarget");
+
         visionRangeObject = bb.GetGameObjectVar("visionRange").Value;
         healRangeObject = bb.GetGameObjectVar("healRange").Value;
 
@@ -35,6 +37,8 @@ public class ClericFollowState : StateBehaviour
 
         turnSpeed = bb.GetFloatVar("turnSpeed");
         moveSpeed = bb.GetFloatVar("moveSpeed");
+
+        lowestHPRatio = 2;
 
     }
 
@@ -54,10 +58,8 @@ public class ClericFollowState : StateBehaviour
     {
         visionRangeObject.GetComponent<ScanSightArea>().CleanNullCharactersFromTargetList();
 
-        if (targettedFriend == null || !visionRangeObject.GetComponent<ScanSightArea>().targetsInRange.Contains(targettedFriend))
+        if (targettedFriend.Value == null || !visionRangeObject.GetComponent<ScanSightArea>().targetsInRange.Contains(targettedFriend.Value))
         {
-            targettedFriend = null;
-            bb.GetGameObjectVar("healTarget").Value = targettedFriend;
             lowestHPRatio = 2;
         }
 
@@ -67,8 +69,7 @@ public class ClericFollowState : StateBehaviour
             if(hpScript.myHP / hpScript.maxHP < lowestHPRatio && potentialTarget.GetComponent<Blackboard>().GetStringVar("characterClass").Value != "Cleric")
             {
                 lowestHPRatio = hpScript.myHP / hpScript.maxHP;
-                targettedFriend = potentialTarget;
-                bb.GetGameObjectVar("healTarget").Value = targettedFriend;
+                targettedFriend.Value = potentialTarget;
             }
         } 
         
@@ -79,15 +80,15 @@ public class ClericFollowState : StateBehaviour
 
     public void FollowMyFriend()
     {
-        if (targettedFriend)
+        if (targettedFriend.Value != null)
         {
             rb.angularVelocity = Vector3.zero;
-            Vector3 pointToMoveTo = new Vector3(targettedFriend.GetComponent<Rigidbody>().position.x, rb.position.y, targettedFriend.GetComponent<Rigidbody>().position.z);
+            Vector3 pointToMoveTo = new Vector3(targettedFriend.Value.GetComponent<Rigidbody>().position.x, rb.position.y, targettedFriend.Value.GetComponent<Rigidbody>().position.z);
             rb.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, (pointToMoveTo - rb.position).normalized, turnSpeed.Value * Time.fixedDeltaTime, 0), Vector3.up);
 
             inMotion.Value = true;
 
-            if (iWasJustPanicking.Value)
+            if (iWasJustPanicking.Value == true)
             {
                 rb.velocity = transform.forward * (moveSpeed.Value * 1.5f * Time.fixedDeltaTime);
             }
@@ -97,7 +98,7 @@ public class ClericFollowState : StateBehaviour
             }
 
             healRangeObject.GetComponent<ScanSightArea>().CleanNullCharactersFromTargetList();
-            if (healRangeObject.GetComponent<ScanSightArea>().targetsInRange.Contains(targettedFriend)) {
+            if (healRangeObject.GetComponent<ScanSightArea>().targetsInRange.Contains(targettedFriend.Value)) {
 
                 iWasJustPanicking.Value = false;
                 inMotion.Value = false;

@@ -25,8 +25,10 @@ public class CharacterAdvanceState : StateBehaviour
 
         inMotion = bb.GetBoolVar("inMotion");
 
-        GetAPositionToMoveTo();
+        Invoke("GetAPositionToMoveTo", Time.maximumDeltaTime);
     }
+
+   
 
     public void MoveToGoal()
     {

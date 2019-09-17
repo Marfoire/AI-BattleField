@@ -205,9 +205,9 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 2
+  m_Interpolate: 0
   m_Constraints: 84
-  m_CollisionDetection: 3
+  m_CollisionDetection: 0
 --- !u!114 &8886007053576034271
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -233,7 +233,7 @@ MonoBehaviour:
     m_EventID: 568027102
   - m_Destination: {fileID: 8886007053576034273}
     m_EventID: 1497637566
-  m_CachedInstanceID: -1342034
+  m_CachedInstanceID: -185976
   targettedEnemy: {fileID: 0}
 --- !u!114 &8886007053576034272
 MonoBehaviour:
@@ -260,7 +260,7 @@ MonoBehaviour:
     m_EventID: 568027102
   - m_Destination: {fileID: 8886007053576034273}
     m_EventID: 1497637566
-  m_CachedInstanceID: -1342036
+  m_CachedInstanceID: -185978
 --- !u!114 &8886007053576034273
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -286,7 +286,7 @@ MonoBehaviour:
     m_EventID: 765540588
   - m_Destination: {fileID: 8886007053576034274}
     m_EventID: 608135493
-  m_CachedInstanceID: -1342038
+  m_CachedInstanceID: -185980
   pointToTravelTo: {x: 0, y: 0, z: 0}
 --- !u!114 &8886007053576034274
 MonoBehaviour:
@@ -311,7 +311,7 @@ MonoBehaviour:
     m_EventID: 1063056756
   - m_Destination: {fileID: 8886007053576034272}
     m_EventID: 765540588
-  m_CachedInstanceID: -1342040
+  m_CachedInstanceID: -185982
 --- !u!114 &8886007053576034275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,7 +331,7 @@ MonoBehaviour:
   m_HideScript: 1
   m_Position: {x: 0, y: 0}
   m_Transitions: []
-  m_CachedInstanceID: -1342042
+  m_CachedInstanceID: -185984
   m_Description: 
   m_EnabledState: {fileID: 0}
   m_LastEnabledState: {fileID: 0}
@@ -551,6 +551,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 2300000, guid: 504b3f635c38c364b958b02549ed4a4f, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 504b3f635c38c364b958b02549ed4a4f, type: 3}
 --- !u!1 &8886007053609662473 stripped

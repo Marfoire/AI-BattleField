@@ -17,7 +17,7 @@ public class ClericHealState : StateBehaviour
     private GameObject visionRangeObject;
     private GameObject healRangeObject;
 
-    private GameObject targettedFriend;
+    private GameObjectVar targettedFriend;
 
     private float lowestHPRatio;
 
@@ -45,9 +45,13 @@ public class ClericHealState : StateBehaviour
         healTimeInSeconds = bb.GetFloatVar("healSpeedInSeconds");
 
         targettedFriend = bb.GetGameObjectVar("healTarget");
-        lowestHPRatio = targettedFriend.GetComponent<HPValueHandler>().myHP / targettedFriend.GetComponent<HPValueHandler>().maxHP;
 
+        if (targettedFriend.Value != null)
+        {
+            lowestHPRatio = targettedFriend.Value.GetComponent<HPValueHandler>().myHP / targettedFriend.Value.GetComponent<HPValueHandler>().maxHP;
         }
+
+    }
 
     public void IsItTimeToPanic()
     {
@@ -65,7 +69,7 @@ public class ClericHealState : StateBehaviour
     {
         healRangeObject.GetComponent<ScanSightArea>().CleanNullCharactersFromTargetList();
 
-        if (targettedFriend == null)
+        if (targettedFriend.Value == null)
         {
             lowestHPRatio = 2;
         }
@@ -76,17 +80,16 @@ public class ClericHealState : StateBehaviour
             if (hpScript.myHP / hpScript.maxHP < lowestHPRatio)
             {
                 lowestHPRatio = hpScript.myHP / hpScript.maxHP;
-                targettedFriend = potentialTarget;
-                bb.GetGameObjectVar("healTarget").Value = targettedFriend;
+                targettedFriend.Value = potentialTarget;
             }
         }
     }
 
     public void HealMyFriend()
     {
-        if (targettedFriend)
+        if (targettedFriend.Value != null && lowestHPRatio < 1)
         {
-            rb.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, (targettedFriend.GetComponent<Rigidbody>().position - rb.position).normalized, turnSpeed.Value * Time.fixedDeltaTime, 0), Vector3.up);
+            rb.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, (targettedFriend.Value.GetComponent<Rigidbody>().position - rb.position).normalized, turnSpeed.Value * Time.fixedDeltaTime, 0), Vector3.up);
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
 
@@ -94,9 +97,10 @@ public class ClericHealState : StateBehaviour
             if (lastHealStart + healTimeInSeconds.Value < Time.fixedTime )
             {
                 lastHealStart = Time.time;
-                targettedFriend.GetComponent<HPValueHandler>().HealHp();
+                targettedFriend.Value.GetComponent<HPValueHandler>().HealHp();
+                
             }
-
+            lowestHPRatio = targettedFriend.Value.GetComponent<HPValueHandler>().myHP / targettedFriend.Value.GetComponent<HPValueHandler>().maxHP;
         }
     }
 

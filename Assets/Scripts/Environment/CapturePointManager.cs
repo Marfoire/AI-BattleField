@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CapturePointManager : MonoBehaviour
 {
-    private static CapturePointManager instance;
+    public static CapturePointManager instance;
 
     public List<GameObject> charactersOnCapturePoint = new List<GameObject>();
 
@@ -39,11 +39,13 @@ public class CapturePointManager : MonoBehaviour
 
         outlineParticle = transform.GetComponentInChildren<LineRenderer>();
         outlineStartPosition = outlineParticle.gameObject.transform.position;
+
+        instance = this;
     }
 
     private void OnEnable()
     {
-        instance = this;
+        
     }
 
     public static bool ObjectiveContainsVector(Vector3 position)
@@ -55,7 +57,7 @@ public class CapturePointManager : MonoBehaviour
     {
         Vector3 maxBounds = instance.pointCollider.bounds.max;
         Vector3 minBounds = instance.pointCollider.bounds.min;
-        return new Vector3(Random.Range(maxBounds.x, minBounds.x), characterVector.y, Random.Range(maxBounds.z, minBounds.z));
+        return new Vector3(Random.Range(minBounds.x, maxBounds.x), characterVector.y, Random.Range(minBounds.z, maxBounds.z));
     }
 
 

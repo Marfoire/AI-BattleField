@@ -57,7 +57,7 @@ public class SpawnerManager : MonoBehaviour
 
     private void SpawnCharacters(List<GameObject> characterList, GameObject characterPrefab)
     {
-        for(int i = 0; i < characterList.Capacity - 1; i++)
+        for(int i = 0; i < characterList.Capacity; i++)
         {
             if(characterList[i] == null)
             {

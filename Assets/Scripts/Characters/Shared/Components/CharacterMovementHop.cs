@@ -31,9 +31,9 @@ public class CharacterMovementHop : MonoBehaviour
 
     void Hop()
     {
-        if(parentBody.GetComponent<Blackboard>().GetStringVar("characterClass") == "Cleric")
+        if(parentBody.GetComponent<Blackboard>().GetStringVar("characterClass").Value == "Cleric")
         {
-            if (parentBody.GetComponent<Blackboard>().GetBoolVar("wasIPanicking"))
+            if (parentBody.GetComponent<Blackboard>().GetBoolVar("wasIPanicking").Value == true)
             {
                 hopRate = startingHopValue * 2;
             }

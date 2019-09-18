@@ -6,12 +6,12 @@ using BehaviourMachine;
 public class CharacterDefendState : StateBehaviour
 {
     private Rigidbody rb;
-    private GameObject visionRangeObject;
+    private ScanSightArea visionRangeObject;
 
     private void OnEnable()
     {
         rb = GetComponent<Rigidbody>();
-        visionRangeObject = GetComponent<Blackboard>().GetGameObjectVar("visionRange").Value;
+        visionRangeObject = GetComponent<Blackboard>().GetGameObjectVar("visionRange").Value.GetComponent<ScanSightArea>();
     }
 
     void StandInPlace()
@@ -22,8 +22,8 @@ public class CharacterDefendState : StateBehaviour
 
     void IsAnEnemyApproaching()
     {
-        visionRangeObject.GetComponent<ScanSightArea>().CleanNullCharactersFromTargetList();
-        if (visionRangeObject.GetComponent<ScanSightArea>().targetsInRange.Count != 0)
+        visionRangeObject.CleanNullCharactersFromTargetList();
+        if (visionRangeObject.targetsInRange.Count != 0)
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;

@@ -8,7 +8,7 @@ public class CharacterAdvanceState : StateBehaviour
 
     public Vector3 pointToTravelTo;
     private Rigidbody rb;
-    private GameObject visionRangeObject;
+    private ScanSightArea visionRangeObject;
     private Blackboard bb;
     private FloatVar turnSpeed, moveSpeed;
     private BoolVar inMotion;
@@ -21,7 +21,7 @@ public class CharacterAdvanceState : StateBehaviour
         turnSpeed = bb.GetFloatVar("turnSpeed");
         moveSpeed = bb.GetFloatVar("moveSpeed");
 
-        visionRangeObject = bb.GetGameObjectVar("visionRange").Value;
+        visionRangeObject = bb.GetGameObjectVar("visionRange").Value.GetComponent<ScanSightArea>();
 
         inMotion = bb.GetBoolVar("inMotion");
 
@@ -55,8 +55,8 @@ public class CharacterAdvanceState : StateBehaviour
 
     public void IsItTimeToAggro()
     {
-        visionRangeObject.GetComponent<ScanSightArea>().CleanNullCharactersFromTargetList();
-        if (visionRangeObject.GetComponent<ScanSightArea>().targetsInRange.Count != 0)
+        visionRangeObject.CleanNullCharactersFromTargetList();
+        if (visionRangeObject.targetsInRange.Count != 0)
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;

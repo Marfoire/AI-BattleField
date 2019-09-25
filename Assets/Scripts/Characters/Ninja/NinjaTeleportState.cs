@@ -5,20 +5,34 @@ using BehaviourMachine;
 
 public class NinjaTeleportState : StateBehaviour
 {
-	// Called when the state is enabled
-	void OnEnable () {
-		Debug.Log("Started *State*");
-	}
- 
-	// Called when the state is disabled
-	void OnDisable () {
-		Debug.Log("Stopped *State*");
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public GameObject smokeEffect;
+    private Rigidbody rb;
+
+    // Called when the state is enabled
+    void OnEnable()
+    {
+        rb = GetComponent<Rigidbody>();
+        Instantiate(smokeEffect, transform.position, Quaternion.identity);
+        GetComponent<CapsuleCollider>().enabled = false;
+        GetComponentInChildren<MeshRenderer>().enabled = false;
+        Invoke("Reappear", 1);
+    }
+
+    // Called when the state is disabled
+    void OnDisable()
+    {
+        Debug.Log("Stopped *State*");
+    }
+
+    void Reappear()
+    {
+        
+
+        Instantiate(smokeEffect, transform.position, Quaternion.identity);
+        GetComponent<CapsuleCollider>().enabled = true;
+        GetComponentInChildren<MeshRenderer>().enabled = true;
+        SendEvent("EnemySighted");
+    }
 }
 
 

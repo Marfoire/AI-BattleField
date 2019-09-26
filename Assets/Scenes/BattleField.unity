@@ -321,27 +321,27 @@ PrefabInstance:
     - target: {fileID: 8886007053576034271, guid: 14021617aabd27249ac8f3c9f2067822,
         type: 3}
       propertyPath: m_CachedInstanceID
-      value: -11740
+      value: -11772
       objectReference: {fileID: 0}
     - target: {fileID: 8886007053576034272, guid: 14021617aabd27249ac8f3c9f2067822,
         type: 3}
       propertyPath: m_CachedInstanceID
-      value: -11742
+      value: -11774
       objectReference: {fileID: 0}
     - target: {fileID: 8886007053576034273, guid: 14021617aabd27249ac8f3c9f2067822,
         type: 3}
       propertyPath: m_CachedInstanceID
-      value: -11744
+      value: -11776
       objectReference: {fileID: 0}
     - target: {fileID: 8886007053576034274, guid: 14021617aabd27249ac8f3c9f2067822,
         type: 3}
       propertyPath: m_CachedInstanceID
-      value: -11746
+      value: -11778
       objectReference: {fileID: 0}
     - target: {fileID: 8886007053576034275, guid: 14021617aabd27249ac8f3c9f2067822,
         type: 3}
       propertyPath: m_CachedInstanceID
-      value: -11748
+      value: -11780
       objectReference: {fileID: 0}
     - target: {fileID: 8886007053576034276, guid: 14021617aabd27249ac8f3c9f2067822,
         type: 3}
@@ -500,6 +500,7 @@ MonoBehaviour:
   outlineParticleSpeed: 1
   outlineParticleAlphaFadeRate: 0.4
   outlineParticleMaxHeight: 2.8
+  scoreInterval: 3
 --- !u!1 &482502549
 GameObject:
   m_ObjectHideFlags: 0
@@ -1802,28 +1803,63 @@ PrefabInstance:
     - target: {fileID: 600308417619414056, guid: 0231d93cc5bb12e4ab57300c528a505f,
         type: 3}
       propertyPath: m_CachedInstanceID
-      value: -11862
+      value: -11894
+      objectReference: {fileID: 0}
+    - target: {fileID: 2090063129807559101, guid: 0231d93cc5bb12e4ab57300c528a505f,
+        type: 3}
+      propertyPath: m_Transitions.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2090063129807559101, guid: 0231d93cc5bb12e4ab57300c528a505f,
         type: 3}
       propertyPath: m_CachedInstanceID
-      value: -11864
+      value: -11896
+      objectReference: {fileID: 0}
+    - target: {fileID: 2090063129807559101, guid: 0231d93cc5bb12e4ab57300c528a505f,
+        type: 3}
+      propertyPath: m_Transitions.Array.data[1].m_EventID
+      value: 708690825
+      objectReference: {fileID: 0}
+    - target: {fileID: 2090063129807559101, guid: 0231d93cc5bb12e4ab57300c528a505f,
+        type: 3}
+      propertyPath: m_Transitions.Array.data[1].m_Destination
+      value: 
+      objectReference: {fileID: 6322895605313698764}
+    - target: {fileID: 1920724544707702276, guid: 0231d93cc5bb12e4ab57300c528a505f,
+        type: 3}
+      propertyPath: m_Transitions.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1920724544707702276, guid: 0231d93cc5bb12e4ab57300c528a505f,
         type: 3}
       propertyPath: m_CachedInstanceID
-      value: -11866
+      value: -11898
       objectReference: {fileID: 0}
     - target: {fileID: 1193691787853935621, guid: 0231d93cc5bb12e4ab57300c528a505f,
         type: 3}
       propertyPath: m_CachedInstanceID
-      value: -11868
+      value: -11900
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967136206358194931, guid: 0231d93cc5bb12e4ab57300c528a505f,
+        type: 3}
+      propertyPath: m_Transitions.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7967136206358194931, guid: 0231d93cc5bb12e4ab57300c528a505f,
         type: 3}
       propertyPath: m_CachedInstanceID
-      value: -11870
+      value: -11902
       objectReference: {fileID: 0}
+    - target: {fileID: 7967136206358194931, guid: 0231d93cc5bb12e4ab57300c528a505f,
+        type: 3}
+      propertyPath: m_Transitions.Array.data[1].m_EventID
+      value: 1174631713
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967136206358194931, guid: 0231d93cc5bb12e4ab57300c528a505f,
+        type: 3}
+      propertyPath: m_Transitions.Array.data[1].m_Destination
+      value: 
+      objectReference: {fileID: 6322895605313698764}
     - target: {fileID: 69425129791360423, guid: 0231d93cc5bb12e4ab57300c528a505f,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1831,6 +1867,18 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: c3577d6fc65962045877805ed2186a2b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0231d93cc5bb12e4ab57300c528a505f, type: 3}
+--- !u!114 &6322895605313698764 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1920724544707702276, guid: 0231d93cc5bb12e4ab57300c528a505f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6322895605313698763}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0814d7a9351e9e84a89df77e3332202e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8224334016220422946
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2071,27 +2119,27 @@ PrefabInstance:
     - target: {fileID: 8886007053576034271, guid: 14021617aabd27249ac8f3c9f2067822,
         type: 3}
       propertyPath: m_CachedInstanceID
-      value: -11980
+      value: -12012
       objectReference: {fileID: 0}
     - target: {fileID: 8886007053576034272, guid: 14021617aabd27249ac8f3c9f2067822,
         type: 3}
       propertyPath: m_CachedInstanceID
-      value: -11982
+      value: -12014
       objectReference: {fileID: 0}
     - target: {fileID: 8886007053576034273, guid: 14021617aabd27249ac8f3c9f2067822,
         type: 3}
       propertyPath: m_CachedInstanceID
-      value: -11984
+      value: -12016
       objectReference: {fileID: 0}
     - target: {fileID: 8886007053576034274, guid: 14021617aabd27249ac8f3c9f2067822,
         type: 3}
       propertyPath: m_CachedInstanceID
-      value: -11986
+      value: -12018
       objectReference: {fileID: 0}
     - target: {fileID: 8886007053576034275, guid: 14021617aabd27249ac8f3c9f2067822,
         type: 3}
       propertyPath: m_CachedInstanceID
-      value: -11988
+      value: -12020
       objectReference: {fileID: 0}
     - target: {fileID: 8886007053576034276, guid: 14021617aabd27249ac8f3c9f2067822,
         type: 3}

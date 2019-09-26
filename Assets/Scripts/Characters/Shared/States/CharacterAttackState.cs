@@ -16,18 +16,18 @@ public class CharacterAttackState : StateBehaviour
     private FloatVar turnSpeed;//rotation speed
     private FloatVar attackSpeed;//attack speed in seconds
 
-    /// <summary>
-    /// kkkkkk
-    /// </summary>
+
     private ScanSightArea visionRangeObject;
     private ScanSightArea attackRangeObject;
-    public GameObject targettedEnemy;
+
+
+    public GameObjectVar targettedEnemy;
 
     private BoolVar inMotion;
 
     private float lowestSqrMagnitude;
 
-    
+    private bool invokedTeleport;
 
     private float attackStartTime;
 
@@ -35,6 +35,8 @@ public class CharacterAttackState : StateBehaviour
 
     private void OnEnable()
     {
+
+
         rb = GetComponent<Rigidbody>();
         bb = GetComponent<Blackboard>();
 
@@ -48,17 +50,22 @@ public class CharacterAttackState : StateBehaviour
         inMotion = bb.GetBoolVar("inMotion");
         amIAtObjective = bb.GetBoolVar("atObjective");
 
+        targettedEnemy = bb.GetGameObjectVar("targetEnemy");
+
+        invokedTeleport = false;
+
     }
 
     public void ChargeAtEnemy()
     {
-        if (targettedEnemy)
+        if (targettedEnemy.Value)
         {
             rb.angularVelocity = Vector3.zero;
-            rb.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, (targettedEnemy.GetComponent<Rigidbody>().position - rb.position).normalized, turnSpeed.Value * Time.fixedDeltaTime, 0), Vector3.up);
+            rb.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, (targettedEnemy.Value.GetComponent<Rigidbody>().position - rb.position).normalized, turnSpeed.Value * Time.fixedDeltaTime, 0), Vector3.up);
 
-            if (!attackRangeObject.targetsInRange.Contains(targettedEnemy))
-            {
+            attackRangeObject.CleanNullCharactersFromTargetList();
+            if (!attackRangeObject.targetsInRange.Contains(targettedEnemy.Value))
+            {              
                 inMotion.Value = true;
                 rb.velocity = transform.forward * (moveSpeed.Value * Time.fixedDeltaTime);
             }
@@ -66,13 +73,17 @@ public class CharacterAttackState : StateBehaviour
             {
                 AttackTarget();
             }
+
+            if (bb.GetStringVar("characterClass").Value == "Ninja" && invokedTeleport == false && targettedEnemy.Value.GetComponent<Blackboard>().GetStringVar("characterClass").Value != "Cleric")
+            {
+                SquishyEnemyInRange();
+            }
         }
     }
 
     public void IsAreaClearOfEnemies()
     {
         visionRangeObject.CleanNullCharactersFromTargetList();
-        attackRangeObject.CleanNullCharactersFromTargetList();
 
         if (visionRangeObject.targetsInRange.Count == 0)
         {
@@ -95,22 +106,28 @@ public class CharacterAttackState : StateBehaviour
     public void TargetTheClosestEnemy()
     {
         visionRangeObject.CleanNullCharactersFromTargetList();
-        attackRangeObject.CleanNullCharactersFromTargetList();
 
-        if (targettedEnemy == null)
+        lowestSqrMagnitude = 10000000;
+
+        if(bb.GetStringVar("characterClass").Value == "Ninja" && targettedEnemy.Value != null)
         {
-            lowestSqrMagnitude = 10000000000;
+            if (targettedEnemy.Value.GetComponent<Blackboard>().GetStringVar("characterClass").Value == "Cleric")
+            {
+                return;
+            }
         }
 
         foreach (GameObject potentialTarget in visionRangeObject.targetsInRange)
         {
-            if(lowestSqrMagnitude > Vector3.SqrMagnitude(rb.position - potentialTarget.GetComponent<Rigidbody>().position))
+            if (lowestSqrMagnitude > Vector3.SqrMagnitude(rb.position - potentialTarget.GetComponent<Rigidbody>().position))
             {
                 lowestSqrMagnitude = Vector3.SqrMagnitude(rb.position - potentialTarget.GetComponent<Rigidbody>().position);
-                targettedEnemy = potentialTarget;
-            }            
+                targettedEnemy.Value = potentialTarget;
+            }
         }
     }
+
+
 
     public void AttackTarget()
     {
@@ -120,15 +137,40 @@ public class CharacterAttackState : StateBehaviour
         if (attackStartTime + attackSpeed.Value < Time.fixedTime)
         {
             attackStartTime = Time.fixedTime;
-            targettedEnemy.GetComponent<HPValueHandler>().TakeDamage();
+            targettedEnemy.Value.GetComponent<HPValueHandler>().TakeDamage();
         }
     }
+
+    public void SquishyEnemyInRange()
+    {
+        visionRangeObject.CleanNullCharactersFromTargetList();
+
+        if (visionRangeObject.targetsInRange.Exists(x => x.GetComponent<Blackboard>().GetStringVar("characterClass").Value == "Cleric"))
+        {
+            invokedTeleport = true;
+            Invoke("InitiateTeleport", Random.Range(2, 5));
+        }
+    }
+
+    void InitiateTeleport()
+    {
+        visionRangeObject.CleanNullCharactersFromTargetList();
+        if (visionRangeObject.targetsInRange.Exists(x => x.GetComponent<Blackboard>().GetStringVar("characterClass").Value == "Cleric"))
+        {
+            List<GameObject> clericsToPickFrom = visionRangeObject.targetsInRange.FindAll(x => x.GetComponent<Blackboard>().GetStringVar("characterClass").Value == "Cleric");
+            targettedEnemy.Value = clericsToPickFrom[Random.Range(0,clericsToPickFrom.Count)];
+            SendEvent("ItsSmokeBombTime");
+            rb.angularVelocity = Vector3.zero;
+            rb.velocity = Vector3.zero;
+        }
+    }
+
 
     void FixedUpdate()
     {
         IsAreaClearOfEnemies();
         TargetTheClosestEnemy();
-        ChargeAtEnemy();        
+        ChargeAtEnemy();
     }
 }
 

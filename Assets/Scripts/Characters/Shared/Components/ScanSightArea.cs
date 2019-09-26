@@ -65,6 +65,9 @@ public class ScanSightArea : MonoBehaviour
     {
         //something something predicate finds if queried character value is null
         targetsInRange.RemoveAll(character => character == null);
+
+        //if the predicate finds a ninja that is invisible
+        targetsInRange.RemoveAll(character => character.GetComponent<CapsuleCollider>().enabled == false);
     }
 
 }

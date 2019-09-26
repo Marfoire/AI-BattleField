@@ -43,7 +43,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 40
+  m_Radius: 25
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &319783785
 MonoBehaviour:
@@ -102,7 +102,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &532911802
 MonoBehaviour:
@@ -311,8 +311,7 @@ MonoBehaviour:
     m_EventID: 568027102
   - m_Destination: {fileID: 8886007053576034273}
     m_EventID: 1497637566
-  m_CachedInstanceID: -87714
-  targettedEnemy: {fileID: 0}
+  m_CachedInstanceID: -539306
 --- !u!114 &8886007053576034272
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -338,7 +337,7 @@ MonoBehaviour:
     m_EventID: 568027102
   - m_Destination: {fileID: 8886007053576034273}
     m_EventID: 1497637566
-  m_CachedInstanceID: -87716
+  m_CachedInstanceID: -539308
 --- !u!114 &8886007053576034273
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -364,7 +363,7 @@ MonoBehaviour:
     m_EventID: 765540588
   - m_Destination: {fileID: 8886007053576034274}
     m_EventID: 608135493
-  m_CachedInstanceID: -87718
+  m_CachedInstanceID: -539310
   pointToTravelTo: {x: 0, y: 0, z: 0}
 --- !u!114 &8886007053576034274
 MonoBehaviour:
@@ -389,7 +388,7 @@ MonoBehaviour:
     m_EventID: 1063056756
   - m_Destination: {fileID: 8886007053576034272}
     m_EventID: 765540588
-  m_CachedInstanceID: -87720
+  m_CachedInstanceID: -539312
 --- !u!114 &8886007053576034275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,7 +408,7 @@ MonoBehaviour:
   m_HideScript: 1
   m_Position: {x: 0, y: 0}
   m_Transitions: []
-  m_CachedInstanceID: -87722
+  m_CachedInstanceID: -539314
   m_Description: 
   m_EnabledState: {fileID: 0}
   m_LastEnabledState: {fileID: 0}
@@ -487,6 +486,11 @@ MonoBehaviour:
     m_Blackboard: {fileID: 8886007053576034276}
     m_IsConstant: 0
     value: {fileID: 1595159990980578724}
+  - m_ID: 1291720296
+    m_Name: targetEnemy
+    m_Blackboard: {fileID: 8886007053576034276}
+    m_IsConstant: 0
+    value: {fileID: 0}
   m_TextureVars: []
   m_MaterialVars: []
   m_ObjectVars: []

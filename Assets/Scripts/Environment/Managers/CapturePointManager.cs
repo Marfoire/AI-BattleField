@@ -27,6 +27,9 @@ public class CapturePointManager : MonoBehaviour
     public float outlineParticleAlphaFadeRate;
     public float outlineParticleMaxHeight;
 
+    public float scoreInterval;
+    private float lastScoreStartTime;
+
     private void Awake()
     {
         pointCollider = GetComponent<Collider>();
@@ -80,15 +83,17 @@ public class CapturePointManager : MonoBehaviour
     private void CleanNullCharactersFromObjectiveList()
     {
         charactersOnCapturePoint.RemoveAll(character => character == null);
+
+        charactersOnCapturePoint.RemoveAll(character => character.GetComponent<CapsuleCollider>().enabled == false);
     }
 
 
 
     private void AddToScoreValues()
     {
-        if (Time.frameCount % 60 == 0)
+        if (Time.time > scoreInterval + lastScoreStartTime)
         {
-            
+            lastScoreStartTime = Time.time;
             foreach (GameObject character in charactersOnCapturePoint)
             {
                 if (character.tag == "BlueTeam")

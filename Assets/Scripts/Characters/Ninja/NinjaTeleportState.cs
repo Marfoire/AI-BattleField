@@ -25,13 +25,8 @@ public class NinjaTeleportState : StateBehaviour
         Invoke("Reappear", 3);
     }
 
-    // Called when the state is disabled
-    void OnDisable()
-    {
-        Debug.Log("Stopped *State*");
-    }
 
-    private void Update()
+    private void FixedUpdate()
     {
         rb.angularVelocity = Vector3.zero;
         rb.velocity = Vector3.zero;

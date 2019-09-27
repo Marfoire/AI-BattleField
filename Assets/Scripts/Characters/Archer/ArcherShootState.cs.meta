@@ -3,7 +3,11 @@ guid: 97d469c5aadeeec4985e5c3cf75c27e4
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - m_Blackboard: {instanceID: 0}
+  - m_Parent: {instanceID: 0}
+  - targettedEnemy: {instanceID: 0}
+  - arrowPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

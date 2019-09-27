@@ -33,10 +33,11 @@ public class CharacterAttackState : StateBehaviour
 
     private BoolVar amIAtObjective;
 
+    private bool invokeScan;
+
+
     private void OnEnable()
     {
-
-
         rb = GetComponent<Rigidbody>();
         bb = GetComponent<Blackboard>();
 
@@ -53,7 +54,7 @@ public class CharacterAttackState : StateBehaviour
         targettedEnemy = bb.GetGameObjectVar("targetEnemy");
 
         invokedTeleport = false;
-
+        invokeScan = false;
     }
 
     public void ChargeAtEnemy()
@@ -117,6 +118,8 @@ public class CharacterAttackState : StateBehaviour
             }
         }
 
+        invokeScan = false;
+
         foreach (GameObject potentialTarget in visionRangeObject.targetsInRange)
         {
             if (lowestSqrMagnitude > Vector3.SqrMagnitude(rb.position - potentialTarget.GetComponent<Rigidbody>().position))
@@ -158,10 +161,10 @@ public class CharacterAttackState : StateBehaviour
         if (visionRangeObject.targetsInRange.Exists(x => x.GetComponent<Blackboard>().GetStringVar("characterClass").Value == "Cleric"))
         {
             List<GameObject> clericsToPickFrom = visionRangeObject.targetsInRange.FindAll(x => x.GetComponent<Blackboard>().GetStringVar("characterClass").Value == "Cleric");
-            targettedEnemy.Value = clericsToPickFrom[Random.Range(0,clericsToPickFrom.Count)];
-            SendEvent("ItsSmokeBombTime");
+            targettedEnemy.Value = clericsToPickFrom[Random.Range(0,clericsToPickFrom.Count)];          
             rb.angularVelocity = Vector3.zero;
             rb.velocity = Vector3.zero;
+            SendEvent("ItsSmokeBombTime");
         }
     }
 
@@ -169,7 +172,17 @@ public class CharacterAttackState : StateBehaviour
     void FixedUpdate()
     {
         IsAreaClearOfEnemies();
-        TargetTheClosestEnemy();
+
+        if (!targettedEnemy.Value)
+        {
+            TargetTheClosestEnemy();
+        }
+        else if(!invokeScan)
+        {
+            invokeScan = true;
+            Invoke("TargetTheClosestEnemy", 0.5f);
+        }
+
         ChargeAtEnemy();
     }
 }

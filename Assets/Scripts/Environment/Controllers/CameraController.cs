@@ -21,13 +21,16 @@ public class CameraController : MonoBehaviour
 
     private Vector3 velocity;
 
-    private void Update()
+    private void FixedUpdate()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
 
         Movement();
-        LookingAround();
+        if (Input.GetMouseButton(0))
+        {
+            LookingAround();
+        }
     }
 
     private void Movement()

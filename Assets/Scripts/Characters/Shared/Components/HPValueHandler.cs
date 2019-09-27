@@ -64,7 +64,7 @@ public class HPValueHandler : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         //temporary death check
         if (myHP.Value <= 0)

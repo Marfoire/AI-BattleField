@@ -46,11 +46,6 @@ public class CapturePointManager : MonoBehaviour
         instance = this;
     }
 
-    private void OnEnable()
-    {
-        
-    }
-
     public static bool ObjectiveContainsVector(Vector3 position)
     {
         return instance.pointCollider.bounds.Contains(position);
@@ -91,9 +86,9 @@ public class CapturePointManager : MonoBehaviour
 
     private void AddToScoreValues()
     {
-        if (Time.time > scoreInterval + lastScoreStartTime)
+        if (Time.fixedTime > scoreInterval + lastScoreStartTime)
         {
-            lastScoreStartTime = Time.time;
+            lastScoreStartTime = Time.fixedTime;
             foreach (GameObject character in charactersOnCapturePoint)
             {
                 if (character.tag == "BlueTeam")
@@ -148,8 +143,8 @@ public class CapturePointManager : MonoBehaviour
         }
 
         //gradually fade out the alpha of the lineRenderer
-        outlineParticle.startColor -= new Color(0, 0, 0, outlineParticleAlphaFadeRate * Time.deltaTime);
-        outlineParticle.endColor -= new Color(0, 0, 0, outlineParticleAlphaFadeRate * Time.deltaTime);
+        outlineParticle.startColor -= new Color(0, 0, 0, outlineParticleAlphaFadeRate * Time.fixedDeltaTime);
+        outlineParticle.endColor -= new Color(0, 0, 0, outlineParticleAlphaFadeRate * Time.fixedDeltaTime);
 
 
         //if the y position of the particle exceeds it's starting position plus the max height I want it to travel
@@ -164,7 +159,7 @@ public class CapturePointManager : MonoBehaviour
         }
 
         //move the particle up by a given speed
-        outlineParticle.gameObject.transform.position += new Vector3(0, outlineParticleSpeed * Time.deltaTime, 0);
+        outlineParticle.gameObject.transform.position += new Vector3(0, outlineParticleSpeed * Time.fixedDeltaTime, 0);
 
     }
 
@@ -174,7 +169,7 @@ public class CapturePointManager : MonoBehaviour
         return new Color(rgbToKeep.r, rgbToKeep.g, rgbToKeep.b, alphaToKeep.a);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         CleanNullCharactersFromObjectiveList();
         AddToScoreValues();

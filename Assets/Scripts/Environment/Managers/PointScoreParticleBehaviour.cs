@@ -16,15 +16,15 @@ public class PointScoreParticleBehaviour : MonoBehaviour
 
     void GraduallyRiseAndFade()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y + risingRate * Time.deltaTime, transform.position.z);
+        transform.position = new Vector3(transform.position.x, transform.position.y + risingRate * Time.fixedDeltaTime, transform.position.z);
         if (onBlueTeam)
         {           
-            blueColour = new Color(blueColour.r, blueColour.g, blueColour.b, blueColour.a - fadeRate * Time.deltaTime);
+            blueColour = new Color(blueColour.r, blueColour.g, blueColour.b, blueColour.a - fadeRate * Time.fixedDeltaTime);
             GetComponent<TextMesh>().color = blueColour;
         }
         else
         {
-            redColour = new Color(redColour.r, redColour.g, redColour.b, redColour.a - fadeRate * Time.deltaTime);
+            redColour = new Color(redColour.r, redColour.g, redColour.b, redColour.a - fadeRate * Time.fixedDeltaTime);
             GetComponent<TextMesh>().color = redColour;
         }
         if(GetComponent<TextMesh>().color.a <= 0)
@@ -35,7 +35,7 @@ public class PointScoreParticleBehaviour : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         GraduallyRiseAndFade();
     }

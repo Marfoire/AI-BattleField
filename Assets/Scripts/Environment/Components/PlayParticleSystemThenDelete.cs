@@ -10,8 +10,7 @@ public class PlayParticleSystemThenDelete : MonoBehaviour
         GetComponent<ParticleSystem>().Play();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(GetComponent<ParticleSystem>().isPlaying == false)
         {

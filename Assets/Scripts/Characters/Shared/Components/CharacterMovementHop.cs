@@ -45,7 +45,7 @@ public class CharacterMovementHop : MonoBehaviour
 
         if(transform.parent.GetComponent<Blackboard>().GetBoolVar("inMotion").Value == true)
         {
-            timeSpentHopping += Time.deltaTime; 
+            timeSpentHopping += Time.fixedDeltaTime; 
             targetVector = new Vector3(transform.localPosition.x, groundedHeight + hopHeight, transform.localPosition.z);
             hopTValue = Mathf.PingPong(Mathf.Sin(timeSpentHopping * hopRate), 1);
             transform.localPosition = Vector3.Lerp(new Vector3(transform.localPosition.x, groundedHeight, transform.localPosition.z), targetVector, hopTValue);
@@ -53,14 +53,14 @@ public class CharacterMovementHop : MonoBehaviour
         else if (hopTValue != 0)
         {
             timeSpentHopping = 0;
-            hopTValue -= Mathf.Clamp(Mathf.Sin(Time.deltaTime * hopRate), 0,1);
+            hopTValue -= Mathf.Clamp(Mathf.Sin(Time.fixedDeltaTime * hopRate), 0,1);
             targetVector = new Vector3(transform.localPosition.x, groundedHeight + hopHeight, transform.localPosition.z);
             transform.localPosition = Vector3.Lerp(new Vector3(transform.localPosition.x, groundedHeight, transform.localPosition.z), targetVector, hopTValue);
         }
         
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Hop();
     }

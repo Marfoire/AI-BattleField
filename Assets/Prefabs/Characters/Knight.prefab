@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8944115000896556893}
   - component: {fileID: 2102846615331921142}
   - component: {fileID: 319783785}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: VisionRangeObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 285671949806420318}
   - component: {fileID: 5060512053503565524}
   - component: {fileID: 532911802}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AttackRangeObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 7525260271842174443}
   m_Layer: 0
   m_Name: Knight
-  m_TagString: BlueTeam
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -311,7 +311,7 @@ MonoBehaviour:
     m_EventID: 568027102
   - m_Destination: {fileID: 8886007053576034273}
     m_EventID: 1497637566
-  m_CachedInstanceID: -539306
+  m_CachedInstanceID: -595098
 --- !u!114 &8886007053576034272
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -337,7 +337,7 @@ MonoBehaviour:
     m_EventID: 568027102
   - m_Destination: {fileID: 8886007053576034273}
     m_EventID: 1497637566
-  m_CachedInstanceID: -539308
+  m_CachedInstanceID: -595100
 --- !u!114 &8886007053576034273
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -363,7 +363,7 @@ MonoBehaviour:
     m_EventID: 765540588
   - m_Destination: {fileID: 8886007053576034274}
     m_EventID: 608135493
-  m_CachedInstanceID: -539310
+  m_CachedInstanceID: -595102
   pointToTravelTo: {x: 0, y: 0, z: 0}
 --- !u!114 &8886007053576034274
 MonoBehaviour:
@@ -388,7 +388,7 @@ MonoBehaviour:
     m_EventID: 1063056756
   - m_Destination: {fileID: 8886007053576034272}
     m_EventID: 765540588
-  m_CachedInstanceID: -539312
+  m_CachedInstanceID: -595104
 --- !u!114 &8886007053576034275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,7 +408,7 @@ MonoBehaviour:
   m_HideScript: 1
   m_Position: {x: 0, y: 0}
   m_Transitions: []
-  m_CachedInstanceID: -539314
+  m_CachedInstanceID: -595106
   m_Description: 
   m_EnabledState: {fileID: 0}
   m_LastEnabledState: {fileID: 0}

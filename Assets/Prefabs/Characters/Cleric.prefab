@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 5706283912798758045}
   m_Layer: 0
   m_Name: Cleric
-  m_TagString: BlueTeam
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -315,7 +315,7 @@ MonoBehaviour:
   m_HideScript: 1
   m_Position: {x: 0, y: 0}
   m_Transitions: []
-  m_CachedInstanceID: -85194
+  m_CachedInstanceID: -596118
   m_Description: 
   m_EnabledState: {fileID: 0}
   m_LastEnabledState: {fileID: 0}
@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Transitions:
   - m_Destination: {fileID: 254216644}
     m_EventID: 1955140616
-  m_CachedInstanceID: -85196
+  m_CachedInstanceID: -596120
   timeUntilNextRotationChange: 0
 --- !u!114 &254216643
 MonoBehaviour:
@@ -368,7 +368,7 @@ MonoBehaviour:
     m_EventID: 1991535403
   - m_Destination: {fileID: 254216644}
     m_EventID: 57797762
-  m_CachedInstanceID: -85198
+  m_CachedInstanceID: -596122
 --- !u!114 &254216644
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -392,7 +392,7 @@ MonoBehaviour:
     m_EventID: 1991535403
   - m_Destination: {fileID: 254216643}
     m_EventID: 1319943141
-  m_CachedInstanceID: -85200
+  m_CachedInstanceID: -596124
 --- !u!136 &5706283912798758045
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -418,7 +418,7 @@ GameObject:
   - component: {fileID: 1803228159513558504}
   - component: {fileID: 1871017739630896867}
   - component: {fileID: 3519934747809439694}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AttackRangeObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5230,7 +5230,7 @@ GameObject:
   - component: {fileID: 715406211066814196}
   - component: {fileID: 4461650345626085706}
   - component: {fileID: 6850714872237628553}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: VisionRangeObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}

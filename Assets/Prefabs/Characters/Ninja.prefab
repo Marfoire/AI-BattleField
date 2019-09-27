@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 7967136206358194931}
   m_Layer: 0
   m_Name: Ninja
-  m_TagString: BlueTeam
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,7 +207,7 @@ MonoBehaviour:
   m_HideScript: 1
   m_Position: {x: 0, y: 0}
   m_Transitions: []
-  m_CachedInstanceID: -21410
+  m_CachedInstanceID: -595472
   m_Description: 
   m_EnabledState: {fileID: 0}
   m_LastEnabledState: {fileID: 0}
@@ -265,7 +265,7 @@ MonoBehaviour:
     m_EventID: 1910665501
   - m_Destination: {fileID: 1920724544707702276}
     m_EventID: 708690825
-  m_CachedInstanceID: -21416
+  m_CachedInstanceID: -595478
   smokeEffect: {fileID: 0}
 --- !u!114 &1920724544707702276
 MonoBehaviour:
@@ -290,7 +290,7 @@ MonoBehaviour:
     m_EventID: 417753800
   - m_Destination: {fileID: 2090063129807559101}
     m_EventID: 721474678
-  m_CachedInstanceID: -21418
+  m_CachedInstanceID: -595480
 --- !u!114 &1193691787853935621
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -316,7 +316,7 @@ MonoBehaviour:
     m_EventID: 708690825
   - m_Destination: {fileID: 7967136206358194931}
     m_EventID: 1910665501
-  m_CachedInstanceID: -21420
+  m_CachedInstanceID: -595482
 --- !u!114 &7967136206358194931
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -342,7 +342,7 @@ MonoBehaviour:
     m_EventID: 721474678
   - m_Destination: {fileID: 1920724544707702276}
     m_EventID: 1174631713
-  m_CachedInstanceID: -21422
+  m_CachedInstanceID: -595484
   pointToTravelTo: {x: 0, y: 0, z: 0}
 --- !u!1 &69425129789166439
 GameObject:
@@ -436,7 +436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5b685855ea4314cb2ee7102b4cfdff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hopRate: 4.5
+  hopRate: 7
   hopHeight: 1
   groundedHeight: 0
 --- !u!114 &4995132193596330071
@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 372654956657430831}
   - component: {fileID: 6543851778170495421}
   - component: {fileID: 9041965270271244449}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: VisionRangeObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,7 +523,7 @@ GameObject:
   - component: {fileID: 4068566968129626554}
   - component: {fileID: 6534231319015952282}
   - component: {fileID: 1922544605285429302}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AttackRangeObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}

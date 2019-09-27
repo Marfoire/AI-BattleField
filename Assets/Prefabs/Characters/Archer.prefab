@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 1763711906495782726}
   m_Layer: 0
   m_Name: Archer
-  m_TagString: BlueTeam
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,7 +106,7 @@ MonoBehaviour:
     m_Name: attackSpeedInSeconds
     m_Blackboard: {fileID: 3156462993815532587}
     m_IsConstant: 0
-    value: 2.5
+    value: 5
   - m_ID: 58043679
     m_Name: hpMax
     m_Blackboard: {fileID: 3156462993815532587}
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_HideScript: 1
   m_Position: {x: 0, y: 0}
   m_Transitions: []
-  m_CachedInstanceID: -97200
+  m_CachedInstanceID: -595678
   m_Description: 
   m_EnabledState: {fileID: 0}
   m_LastEnabledState: {fileID: 0}
@@ -247,7 +247,7 @@ MonoBehaviour:
     m_EventID: 417753800
   - m_Destination: {fileID: 3174729495542688585}
     m_EventID: 1174631713
-  m_CachedInstanceID: -97206
+  m_CachedInstanceID: -595684
   pointToTravelTo: {x: 0, y: 0, z: 0}
 --- !u!114 &3174729495542688585
 MonoBehaviour:
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Transitions:
   - m_Destination: {fileID: 1763711906495782726}
     m_EventID: 417753800
-  m_CachedInstanceID: -97208
+  m_CachedInstanceID: -595686
 --- !u!114 &1763711906495782726
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -294,7 +294,10 @@ MonoBehaviour:
     m_EventID: 1287104319
   - m_Destination: {fileID: 2290949493093293318}
     m_EventID: 156486846
-  m_CachedInstanceID: -97210
+  m_CachedInstanceID: -595688
+  targettedEnemy: {fileID: 0}
+  arrowPrefab: {fileID: 4280814646878880165, guid: 5877dece57e452b4da0e929110d6aa57,
+    type: 3}
 --- !u!1 &913300158164281148
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,7 +418,7 @@ GameObject:
   - component: {fileID: 3759485857382274529}
   - component: {fileID: 6265726086824115137}
   - component: {fileID: 1654039665419781229}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AttackRangeObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +450,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 30
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1654039665419781229
 MonoBehaviour:
@@ -474,7 +477,7 @@ GameObject:
   - component: {fileID: 680601938344797556}
   - component: {fileID: 6235931785789183462}
   - component: {fileID: 8151963856739929338}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: VisionRangeObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -506,7 +509,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 40
+  m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8151963856739929338
 MonoBehaviour:

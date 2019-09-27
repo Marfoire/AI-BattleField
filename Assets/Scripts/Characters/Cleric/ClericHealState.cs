@@ -106,7 +106,7 @@ public class ClericHealState : StateBehaviour
 
             if (lastHealStart + healTimeInSeconds.Value < Time.fixedTime )
             {
-                lastHealStart = Time.time;
+                lastHealStart = Time.fixedTime;
                 targettedFriend.Value.GetComponent<HPValueHandler>().HealHp();
                 
             }

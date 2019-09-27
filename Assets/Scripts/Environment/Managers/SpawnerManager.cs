@@ -14,16 +14,19 @@ public class SpawnerManager : MonoBehaviour
     public GameObject clericPrefab;
     public GameObject archerPrefab;
     public GameObject ninjaPrefab;
+    public GameObject magePrefab;
 
     public int knightSpawnLimit;
     public int clericSpawnLimit;
     public int archerSpawnLimit;
     public int ninjaSpawnLimit;
+    public int mageSpawnLimit;
 
     public List<GameObject> knights = new List<GameObject>();
     public List<GameObject> clerics = new List<GameObject>();
     public List<GameObject> archers = new List<GameObject>();
     public List<GameObject> ninjas = new List<GameObject>();
+    public List<GameObject> mages = new List<GameObject>();
 
     private void Awake()
     {
@@ -31,6 +34,7 @@ public class SpawnerManager : MonoBehaviour
         SpawnCharacters(clerics, clericPrefab, clericSpawnLimit);
         SpawnCharacters(archers, archerPrefab, archerSpawnLimit);
         SpawnCharacters(ninjas, ninjaPrefab, ninjaSpawnLimit);
+        SpawnCharacters(mages, magePrefab, mageSpawnLimit);
     }
 
     public void SpawnCharacters(List<GameObject> characterList, GameObject characterPrefab, int spawnCap)
@@ -51,15 +55,16 @@ public class SpawnerManager : MonoBehaviour
 
     private void Update()
     {
-        if (lastSpawnTime + spawnWaveInterval < Time.time)
+        if (lastSpawnTime + spawnWaveInterval < Time.fixedTime)
         {
-            lastSpawnTime = Time.time;
+            lastSpawnTime = Time.fixedTime;
 
 
             SpawnCharacters(knights, knightPrefab, knightSpawnLimit);
             SpawnCharacters(clerics, clericPrefab, clericSpawnLimit);
             SpawnCharacters(archers, archerPrefab, archerSpawnLimit);
             SpawnCharacters(ninjas, ninjaPrefab, ninjaSpawnLimit);
+            SpawnCharacters(mages, magePrefab, mageSpawnLimit);
         }
     }
 

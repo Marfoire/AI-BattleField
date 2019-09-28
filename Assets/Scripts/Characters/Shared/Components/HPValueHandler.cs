@@ -25,7 +25,7 @@ public class HPValueHandler : MonoBehaviour
     /// </summary>
     public GameObject hurtParticles;
 
-    void Awake()
+    void OnEnable()
     {
         //get blackboard vars for hp and max hp
         myHP = GetComponent<Blackboard>().GetFloatVar("hpValue");

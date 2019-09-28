@@ -50,12 +50,10 @@ public class ClericHealState : StateBehaviour
         {
             lowestHPRatio = targettedFriend.Value.GetComponent<HPValueHandler>().myHP / targettedFriend.Value.GetComponent<HPValueHandler>().maxHP;
         }
-
     }
 
     public void IsItTimeToPanic()
     {
-        visionRangeObject.GetComponent<ScanSightArea>().CleanNullCharactersFromTargetList();
         if (visionRangeObject.GetComponent<ScanSightArea>().targetsInRange.Count == 0 || !visionRangeObject.GetComponent<ScanSightArea>().targetsInRange.Exists(character => character.GetComponent<Blackboard>().GetStringVar("characterClass").Value != "Cleric"))
         {
             rb.velocity = Vector3.zero;
@@ -67,8 +65,6 @@ public class ClericHealState : StateBehaviour
 
     public void FindAFriend()
     {
-        healRangeObject.GetComponent<ScanSightArea>().CleanNullCharactersFromTargetList();
-        visionRangeObject.GetComponent<ScanSightArea>().CleanNullCharactersFromTargetList();
 
         if (targettedFriend.Value == null)
         {
@@ -116,7 +112,6 @@ public class ClericHealState : StateBehaviour
 
     public void IsEveryoneHealthy()
     {
-        healRangeObject.GetComponent<ScanSightArea>().CleanNullCharactersFromTargetList();
         foreach (GameObject potentialTarget in healRangeObject.GetComponent<ScanSightArea>().targetsInRange)
         {
             HPValueHandler hpScript = potentialTarget.GetComponent<HPValueHandler>();

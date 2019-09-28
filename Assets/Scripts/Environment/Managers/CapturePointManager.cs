@@ -30,7 +30,7 @@ public class CapturePointManager : MonoBehaviour
     public float scoreInterval;
     private float lastScoreStartTime;
 
-    private void Awake()
+    private void OnEnable()
     {
         pointCollider = GetComponent<Collider>();
 
@@ -42,6 +42,7 @@ public class CapturePointManager : MonoBehaviour
 
         outlineParticle = transform.GetComponentInChildren<LineRenderer>();
         outlineStartPosition = outlineParticle.gameObject.transform.position;
+
 
         instance = this;
     }
@@ -77,9 +78,17 @@ public class CapturePointManager : MonoBehaviour
 
     private void CleanNullCharactersFromObjectiveList()
     {
-        charactersOnCapturePoint.RemoveAll(character => character == null);
-
-        charactersOnCapturePoint.RemoveAll(character => character.GetComponent<CapsuleCollider>().enabled == false);
+        for (int i = charactersOnCapturePoint.Count - 1; i >= 0; i--)
+        {
+            if (!charactersOnCapturePoint[i])
+            {
+                charactersOnCapturePoint.RemoveAt(i);
+            }
+            else if (!charactersOnCapturePoint[i].GetComponent<CapsuleCollider>().enabled)
+            {
+                charactersOnCapturePoint.RemoveAt(i);
+            }
+        }
     }
 
 

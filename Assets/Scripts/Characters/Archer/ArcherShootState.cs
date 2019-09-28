@@ -52,7 +52,6 @@ public class ArcherShootState : StateBehaviour
 
     public void IsAreaClearOfEnemies()
     {
-        attackRangeObject.CleanNullCharactersFromTargetList();
 
         if (attackRangeObject.targetsInRange.Count == 0)
         {
@@ -74,8 +73,6 @@ public class ArcherShootState : StateBehaviour
 
     public void TargetWeakestEnemy()
     {
-        attackRangeObject.CleanNullCharactersFromTargetList();
-
         lowestHP = 10000000;
 
         invokeScan = false;

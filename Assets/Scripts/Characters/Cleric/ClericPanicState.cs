@@ -60,7 +60,6 @@ public class ClericPanicState : StateBehaviour
 
     public void FindAFriend()
     {
-        visionRangeObject.GetComponent<ScanSightArea>().CleanNullCharactersFromTargetList();
 
         if(visionRangeObject.GetComponent<ScanSightArea>().targetsInRange.Count > 0 && visionRangeObject.GetComponent<ScanSightArea>().targetsInRange.Exists(character => character.GetComponent<Blackboard>().GetStringVar("characterClass").Value != "Cleric"))
         {

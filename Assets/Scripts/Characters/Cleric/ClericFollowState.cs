@@ -44,7 +44,6 @@ public class ClericFollowState : StateBehaviour
 
     public void IsItTimeToPanic()
     {
-        visionRangeObject.CleanNullCharactersFromTargetList();
         if (visionRangeObject.targetsInRange.Count == 0 || !visionRangeObject.targetsInRange.Exists(character => character.GetComponent<Blackboard>().GetStringVar("characterClass").Value != "Cleric"))
         {
             rb.velocity = Vector3.zero;
@@ -56,7 +55,6 @@ public class ClericFollowState : StateBehaviour
 
     public void FindAFriend()
     {
-        visionRangeObject.CleanNullCharactersFromTargetList();
 
         if (targettedFriend.Value == null || !visionRangeObject.targetsInRange.Contains(targettedFriend.Value))
         {
@@ -97,7 +95,6 @@ public class ClericFollowState : StateBehaviour
                 rb.velocity = transform.forward * (moveSpeed.Value * Time.fixedDeltaTime);
             }
 
-            healRangeObject.CleanNullCharactersFromTargetList();
             if (healRangeObject.targetsInRange.Contains(targettedFriend.Value)) {
 
                 iWasJustPanicking.Value = false;

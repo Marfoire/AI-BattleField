@@ -22,7 +22,6 @@ public class CharacterDefendState : StateBehaviour
 
     void IsAnEnemyApproaching()
     {
-        visionRangeObject.CleanNullCharactersFromTargetList();
         if (visionRangeObject.targetsInRange.Count != 0)
         {
             rb.velocity = Vector3.zero;

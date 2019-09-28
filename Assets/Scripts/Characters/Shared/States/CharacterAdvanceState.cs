@@ -55,7 +55,6 @@ public class CharacterAdvanceState : StateBehaviour
 
     public void IsItTimeToAggro()
     {
-        visionRangeObject.CleanNullCharactersFromTargetList();
         if (visionRangeObject.targetsInRange.Count != 0)
         {
             rb.velocity = Vector3.zero;

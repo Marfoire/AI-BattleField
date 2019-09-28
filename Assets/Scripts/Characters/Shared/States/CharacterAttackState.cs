@@ -64,7 +64,6 @@ public class CharacterAttackState : StateBehaviour
             rb.angularVelocity = Vector3.zero;
             rb.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, (targettedEnemy.Value.GetComponent<Rigidbody>().position - rb.position).normalized, turnSpeed.Value * Time.fixedDeltaTime, 0), Vector3.up);
 
-            attackRangeObject.CleanNullCharactersFromTargetList();
             if (!attackRangeObject.targetsInRange.Contains(targettedEnemy.Value))
             {              
                 inMotion.Value = true;
@@ -84,7 +83,6 @@ public class CharacterAttackState : StateBehaviour
 
     public void IsAreaClearOfEnemies()
     {
-        visionRangeObject.CleanNullCharactersFromTargetList();
 
         if (visionRangeObject.targetsInRange.Count == 0)
         {
@@ -106,7 +104,6 @@ public class CharacterAttackState : StateBehaviour
 
     public void TargetTheClosestEnemy()
     {
-        visionRangeObject.CleanNullCharactersFromTargetList();
 
         lowestSqrMagnitude = 10000000;
 
@@ -146,7 +143,6 @@ public class CharacterAttackState : StateBehaviour
 
     public void SquishyEnemyInRange()
     {
-        visionRangeObject.CleanNullCharactersFromTargetList();
 
         if (visionRangeObject.targetsInRange.Exists(x => x.GetComponent<Blackboard>().GetStringVar("characterClass").Value == "Cleric"))
         {
@@ -157,7 +153,6 @@ public class CharacterAttackState : StateBehaviour
 
     void InitiateTeleport()
     {
-        visionRangeObject.CleanNullCharactersFromTargetList();
         if (visionRangeObject.targetsInRange.Exists(x => x.GetComponent<Blackboard>().GetStringVar("characterClass").Value == "Cleric"))
         {
             List<GameObject> clericsToPickFrom = visionRangeObject.targetsInRange.FindAll(x => x.GetComponent<Blackboard>().GetStringVar("characterClass").Value == "Cleric");

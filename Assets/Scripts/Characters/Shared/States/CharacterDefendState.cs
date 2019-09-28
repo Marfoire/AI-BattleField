@@ -7,17 +7,20 @@ public class CharacterDefendState : StateBehaviour
 {
     private Rigidbody rb;
     private ScanSightArea visionRangeObject;
+    private BoolVar inMotion;
 
     private void OnEnable()
     {
         rb = GetComponent<Rigidbody>();
         visionRangeObject = GetComponent<Blackboard>().GetGameObjectVar("visionRange").Value.GetComponent<ScanSightArea>();
+        inMotion = GetComponent<Blackboard>().GetBoolVar("inMotion");
     }
 
     void StandInPlace()
     {
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+        inMotion.Value = false;
     }
 
     void IsAnEnemyApproaching()

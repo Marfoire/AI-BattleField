@@ -101,7 +101,7 @@ MonoBehaviour:
     m_Name: turnSpeed
     m_Blackboard: {fileID: 7523660449522765921}
     m_IsConstant: 0
-    value: 1
+    value: 2
   - m_ID: 1043661872
     m_Name: attackSpeedInSeconds
     m_Blackboard: {fileID: 7523660449522765921}
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_HideScript: 1
   m_Position: {x: 0, y: 0}
   m_Transitions: []
-  m_CachedInstanceID: -595880
+  m_CachedInstanceID: -252262
   m_Description: 
   m_EnabledState: {fileID: 0}
   m_LastEnabledState: {fileID: 0}
@@ -247,7 +247,7 @@ MonoBehaviour:
     m_EventID: 417753800
   - m_Destination: {fileID: 8046116863575936771}
     m_EventID: 1174631713
-  m_CachedInstanceID: -595886
+  m_CachedInstanceID: -252268
   pointToTravelTo: {x: 0, y: 0, z: 0}
 --- !u!114 &8046116863575936771
 MonoBehaviour:
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Transitions:
   - m_Destination: {fileID: 2823074572661175928}
     m_EventID: 417753800
-  m_CachedInstanceID: -595888
+  m_CachedInstanceID: -252270
 --- !u!114 &2823074572661175928
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -294,7 +294,11 @@ MonoBehaviour:
     m_EventID: 1287104319
   - m_Destination: {fileID: 6659835811305912652}
     m_EventID: 156486846
-  m_CachedInstanceID: -595890
+  m_CachedInstanceID: -252272
+  targettedEnemy: {fileID: 0}
+  fireballPrefab: {fileID: 0}
+  iciclePrefab: {fileID: 363548100872341113, guid: 683203f27653b104f99d7e26f7ac75c9,
+    type: 3}
 --- !u!1 &5695886569665135478
 GameObject:
   m_ObjectHideFlags: 0

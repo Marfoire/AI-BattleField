@@ -96,9 +96,10 @@ public class MageCastState : StateBehaviour
         }
         else
         {*/
-            GameObject spell = Instantiate(iciclePrefab, rb.position + Vector3.up * 2, gameObject.transform.rotation);
+            GameObject spell = Instantiate(iciclePrefab, rb.position + Vector3.up * 4, gameObject.transform.rotation);
             spell.GetComponent<Blackboard>().GetGameObjectVar("target").Value = targettedEnemy;
-            spell.GetComponent<Blackboard>().GetStringVar("myTeam").Value = tag;
+        spell.GetComponent<Blackboard>().GetGameObjectVar("caster").Value = gameObject;
+        spell.GetComponent<Blackboard>().GetStringVar("myTeam").Value = tag;
        // }
     }
 
@@ -110,6 +111,8 @@ public class MageCastState : StateBehaviour
         {
             TargetRandomEnemy();
         }
+
+        CastSpell();
     }
 }
 

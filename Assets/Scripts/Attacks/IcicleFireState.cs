@@ -5,20 +5,45 @@ using BehaviourMachine;
 
 public class IcicleFireState : StateBehaviour
 {
-	// Called when the state is enabled
-	void OnEnable () {
-		Debug.Log("Started *State*");
-	}
- 
-	// Called when the state is disabled
-	void OnDisable () {
-		Debug.Log("Stopped *State*");
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    private Rigidbody rb;
+
+    public float fireSpeed;
+
+    private string myTeamTag;
+
+    float timeStartedFiring;
+
+    public float duration;
+
+    private void OnEnable()
+    {
+        rb = GetComponent<Rigidbody>();
+        myTeamTag = GetComponent<Blackboard>().GetStringVar("myTeam").Value;
+        timeStartedFiring = Time.fixedTime;
+    }
+
+    private void FixedUpdate()
+    {
+        rb.velocity = transform.forward * (fireSpeed * Time.fixedDeltaTime);
+
+        if(timeStartedFiring + duration < Time.fixedTime)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag != myTeamTag && (other.isTrigger == false || other.tag == tag))
+        {
+            if (other.tag == "BlueTeam" || other.tag == "RedTeam")
+            {
+                other.GetComponent<HPValueHandler>().TakeDamage();
+            }
+            Destroy(gameObject);
+        }
+    }
+
 }
 
 

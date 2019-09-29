@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 5268241712286922706}
   - component: {fileID: 363548100872341115}
   - component: {fileID: 363548100872341112}
+  - component: {fileID: 2459020961790840962}
+  - component: {fileID: 5155979856803186253}
+  - component: {fileID: 1892953872624844814}
   m_Layer: 12
   m_Name: Icicle
   m_TagString: Arrow
@@ -95,12 +98,27 @@ MonoBehaviour:
     m_Blackboard: {fileID: 363548100872341115}
     m_IsConstant: 0
     value: {fileID: 0}
+  - m_ID: 1383335688
+    m_Name: caster
+    m_Blackboard: {fileID: 363548100872341115}
+    m_IsConstant: 0
+    value: {fileID: 0}
   m_TextureVars: []
   m_MaterialVars: []
   m_ObjectVars: []
   m_DynamicLists: []
   m_FsmEvents: []
-  m_ConcreteFsmEvents: []
+  m_ConcreteFsmEvents:
+  - m_ID: 523843468
+    m_Name: TakeAim
+    m_Blackboard: {fileID: 363548100872341115}
+    m_IsConstant: 0
+    m_IsSystem: 0
+  - m_ID: 504446229
+    m_Name: Fire
+    m_Blackboard: {fileID: 363548100872341115}
+    m_IsConstant: 0
+    m_IsSystem: 0
   m_Namespace: 
 --- !u!114 &363548100872341112
 MonoBehaviour:
@@ -121,13 +139,84 @@ MonoBehaviour:
   m_HideScript: 1
   m_Position: {x: 0, y: 0}
   m_Transitions: []
-  m_CachedInstanceID: -1568428
+  m_CachedInstanceID: -193676
   m_Description: 
   m_EnabledState: {fileID: 0}
   m_LastEnabledState: {fileID: 0}
-  m_StartState: {fileID: 0}
+  m_StartState: {fileID: 5155979856803186253}
   m_AnyState: {fileID: 0}
   m_ConcurrentState: {fileID: 0}
+--- !u!114 &2459020961790840962
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363548100872341113}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e7c1fe6b91ceb438099ac95e50afb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Blackboard: {fileID: 363548100872341115}
+  m_Parent: {fileID: 363548100872341112}
+  m_StateName: Firing
+  m_Color: 0
+  m_HideScript: 1
+  m_Position: {x: 420, y: 140}
+  m_Transitions: []
+  m_CachedInstanceID: -193678
+  fireSpeed: 4000
+  duration: 10
+--- !u!114 &5155979856803186253
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363548100872341113}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75503b9ca7efd33498c2b252834c649f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Blackboard: {fileID: 363548100872341115}
+  m_Parent: {fileID: 363548100872341112}
+  m_StateName: Rising
+  m_Color: 0
+  m_HideScript: 1
+  m_Position: {x: -60, y: 130}
+  m_Transitions:
+  - m_Destination: {fileID: 1892953872624844814}
+    m_EventID: 523843468
+  - m_Destination: {fileID: 2459020961790840962}
+    m_EventID: 504446229
+  m_CachedInstanceID: -193680
+  maxHeight: 12
+  riseSpeed: 8
+--- !u!114 &1892953872624844814
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363548100872341113}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 199447ccbda45d44b8bbf13a64161e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Blackboard: {fileID: 363548100872341115}
+  m_Parent: {fileID: 363548100872341112}
+  m_StateName: Aiming
+  m_Color: 0
+  m_HideScript: 1
+  m_Position: {x: 160, y: 20}
+  m_Transitions:
+  - m_Destination: {fileID: 2459020961790840962}
+    m_EventID: 504446229
+  m_CachedInstanceID: -193682
+  turnSpeed: 1
 --- !u!1 &9208980572925652104
 GameObject:
   m_ObjectHideFlags: 0

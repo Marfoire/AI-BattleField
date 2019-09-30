@@ -63,11 +63,14 @@ public class ClericFollowState : StateBehaviour
 
         foreach (GameObject potentialTarget in visionRangeObject.targetsInRange)
         {
-            HPValueHandler hpScript = potentialTarget.GetComponent<HPValueHandler>();
-            if(hpScript.myHP.Value / hpScript.maxHP.Value < lowestHPRatio && potentialTarget.GetComponent<Blackboard>().GetStringVar("characterClass").Value != "Cleric")
+            if (potentialTarget)
             {
-                lowestHPRatio = hpScript.myHP.Value / hpScript.maxHP.Value;
-                targettedFriend.Value = potentialTarget;
+                HPValueHandler hpScript = potentialTarget.GetComponent<HPValueHandler>();
+                if (hpScript.myHP.Value / hpScript.maxHP.Value < lowestHPRatio && potentialTarget.GetComponent<Blackboard>().GetStringVar("characterClass").Value != "Cleric")
+                {
+                    lowestHPRatio = hpScript.myHP.Value / hpScript.maxHP.Value;
+                    targettedFriend.Value = potentialTarget;
+                }
             }
         } 
         

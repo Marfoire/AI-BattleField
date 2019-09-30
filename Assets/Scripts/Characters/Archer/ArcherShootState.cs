@@ -79,10 +79,13 @@ public class ArcherShootState : StateBehaviour
 
         foreach (GameObject potentialTarget in attackRangeObject.targetsInRange)
         {
-            if (lowestHP > potentialTarget.GetComponent<HPValueHandler>().myHP.Value)
+            if (potentialTarget)
             {
-                lowestHP = potentialTarget.GetComponent<HPValueHandler>().myHP.Value;
-                targettedEnemy = potentialTarget;
+                if (lowestHP > potentialTarget.GetComponent<HPValueHandler>().myHP.Value)
+                {
+                    lowestHP = potentialTarget.GetComponent<HPValueHandler>().myHP.Value;
+                    targettedEnemy = potentialTarget;
+                }
             }
         }
     }

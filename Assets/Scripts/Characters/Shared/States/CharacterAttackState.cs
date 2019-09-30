@@ -119,10 +119,13 @@ public class CharacterAttackState : StateBehaviour
 
         foreach (GameObject potentialTarget in visionRangeObject.targetsInRange)
         {
-            if (lowestSqrMagnitude > Vector3.SqrMagnitude(rb.position - potentialTarget.GetComponent<Rigidbody>().position))
+            if (potentialTarget)
             {
-                lowestSqrMagnitude = Vector3.SqrMagnitude(rb.position - potentialTarget.GetComponent<Rigidbody>().position);
-                targettedEnemy.Value = potentialTarget;
+                if (lowestSqrMagnitude > Vector3.SqrMagnitude(rb.position - potentialTarget.GetComponent<Rigidbody>().position))
+                {
+                    lowestSqrMagnitude = Vector3.SqrMagnitude(rb.position - potentialTarget.GetComponent<Rigidbody>().position);
+                    targettedEnemy.Value = potentialTarget;
+                }
             }
         }
     }

@@ -34,13 +34,13 @@ public class IcicleFireState : StateBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != myTeamTag && (other.isTrigger == false || other.tag == tag))
+        if (other.tag != myTeamTag && other.isTrigger == false)
         {
             if (other.tag == "BlueTeam" || other.tag == "RedTeam")
             {
                 other.GetComponent<HPValueHandler>().TakeDamage();
             }
-            Destroy(gameObject);
+                Destroy(gameObject);
         }
     }
 

@@ -23,7 +23,7 @@ public class MageCastState : StateBehaviour
 
     private BoolVar amIAtObjective;
 
-    public GameObject fireballPrefab;
+    //public GameObject fireballPrefab;
     public GameObject iciclePrefab;
 
     // Called when the state is enabled
@@ -88,20 +88,31 @@ public class MageCastState : StateBehaviour
         }
     }
 
+    //didn't get to making this choose between a few spells, oh well
     public void ConjureRandomSpell()
     {
-      /* if(Random.Range(0,1) == 0)
-        {
-            GameObject spell = Instantiate(fireballPrefab, rb.position + Vector3.up * 3, gameObject.transform.rotation);
-        }
-        else
-        {*/
-            GameObject spell = Instantiate(iciclePrefab, rb.position + Vector3.up * 4, gameObject.transform.rotation);
-            spell.GetComponent<Blackboard>().GetGameObjectVar("target").Value = targettedEnemy;
+        /* if(Random.Range(0,1) == 0)
+          {
+              GameObject spell = Instantiate(fireballPrefab, rb.position + Vector3.up * 3, gameObject.transform.rotation);
+          }
+          else
+          {*/
+
+        SpawnIcicle();
+        Invoke("SpawnIcicle", 0.2f);
+        Invoke("SpawnIcicle", 0.4f);
+
+        // }
+    }
+
+    public void SpawnIcicle()
+    {
+        GameObject spell = Instantiate(iciclePrefab, rb.position + (Vector3.up * 4) + (Vector3.right * Random.Range(-5,5)) + (Vector3.forward * Random.Range(-5, 5)), gameObject.transform.rotation);
+        spell.GetComponent<Blackboard>().GetGameObjectVar("target").Value = targettedEnemy;
         spell.GetComponent<Blackboard>().GetGameObjectVar("caster").Value = gameObject;
         spell.GetComponent<Blackboard>().GetStringVar("myTeam").Value = tag;
-       // }
     }
+
 
     void FixedUpdate()
     {

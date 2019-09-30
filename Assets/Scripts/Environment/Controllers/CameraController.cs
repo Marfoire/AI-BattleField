@@ -21,6 +21,8 @@ public class CameraController : MonoBehaviour
 
     private Vector3 velocity;
 
+    public GameObject iciclePrefab;
+
     private void FixedUpdate()
     {
         //Cursor.visible = false;
@@ -31,6 +33,7 @@ public class CameraController : MonoBehaviour
         {
             LookingAround();
         }
+        FireIcicle();
     }
 
     private void Movement()
@@ -79,4 +82,14 @@ public class CameraController : MonoBehaviour
 
         transform.eulerAngles += new Vector3(mouse.y, mouse.x, 0);
     }
+
+    private void FireIcicle()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GameObject icicle = Instantiate(iciclePrefab, transform.position + (-transform.up * 5), transform.rotation);
+        }
+    }
+
+
 }

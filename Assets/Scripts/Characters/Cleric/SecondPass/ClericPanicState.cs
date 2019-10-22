@@ -2,17 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using BehaviourMachine;
+using UnityEngine.AI;
 
 public class ClericPanicState : StateBehaviour
 {
-
     private Rigidbody rb;
     private Blackboard bb;
+    private NavMeshAgent agent;
 
     private GameObject visionRangeObject;
 
     private FloatVar turnSpeed, moveSpeed;
-
 
     private Vector3 newRotationVector;
 
@@ -26,6 +26,7 @@ public class ClericPanicState : StateBehaviour
     {
         rb = GetComponent<Rigidbody>();
         bb = GetComponent<Blackboard>();
+        agent = GetComponent<NavMeshAgent>();
 
         visionRangeObject = bb.GetGameObjectVar("visionRange").Value;
 
@@ -40,43 +41,37 @@ public class ClericPanicState : StateBehaviour
         newRotationVector = new Vector3(Random.Range(-180, 180), transform.position.y, Random.Range(-180, 180));
 
         GetComponentInChildren<ParticleSystem>().Play();
+
+        Invoke("SearchForTeammates", 2);
     }
 
-
-
-
-    void Panic()
+    public void Panic()
     {
-        rb.angularVelocity = Vector3.zero;
-        if (lastRotationStartTime + timeUntilNextRotationChange < Time.fixedTime) {
-            newRotationVector = new Vector3(Random.Range(-180,180), transform.position.y, Random.Range(-180, 180));
+        
+
+        if (lastRotationStartTime + timeUntilNextRotationChange < Time.fixedTime)
+        {
+            newRotationVector = new Vector3(Random.Range(-180, 180), transform.position.y, Random.Range(-180, 180));
             lastRotationStartTime = Time.time;
-            timeUntilNextRotationChange = Random.Range(minTimeUntilRotation.Value, maxTimeUntilRotation.Value);            
+            timeUntilNextRotationChange = Random.Range(minTimeUntilRotation.Value, maxTimeUntilRotation.Value);
         }
+
+        // agent.destination = (newRotationVector - rb.position).normalized * 3 + rb.position;
+        bb.GetBoolVar("inMotion").Value = true;
 
         rb.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, (newRotationVector - rb.position).normalized, turnSpeed.Value * Time.fixedDeltaTime, 0), Vector3.up);
         rb.velocity = transform.forward * (moveSpeed.Value * Time.fixedDeltaTime);
     }
 
-    public void FindAFriend()
+    public void SearchForTeammates()
     {
-
-        if(visionRangeObject.GetComponent<ScanSightArea>().targetsInRange.Count > 0 && visionRangeObject.GetComponent<ScanSightArea>().targetsInRange.Exists(character => character.GetComponent<Blackboard>().GetStringVar("characterClass").Value != "Cleric"))
-        {
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            GetComponentInChildren<ParticleSystem>().Stop();
-            SendEvent("ISeeAFriend");
-        }
+        SendEvent("CheckTeammates");
     }
-
 
     private void FixedUpdate()
     {
-        FindAFriend();
         Panic();
     }
-
 }
 
 

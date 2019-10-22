@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using BehaviourMachine;
+using UnityEngine.AI;
 
 public class ArcherShootState : StateBehaviour
 {
@@ -9,6 +10,7 @@ public class ArcherShootState : StateBehaviour
     //shortform component getting for rigidbody and blackboard
     private Rigidbody rb;
     private Blackboard bb;
+    private NavMeshAgent agent;
 
     //blackboard vars for floats
     private FloatVar turnSpeed;//rotation speed
@@ -37,6 +39,7 @@ public class ArcherShootState : StateBehaviour
     void OnEnable () {
         rb = GetComponent<Rigidbody>();
         bb = GetComponent<Blackboard>();
+        agent = GetComponent<NavMeshAgent>();
 
         turnSpeed = bb.GetFloatVar("turnSpeed");
         attackSpeed = bb.GetFloatVar("attackSpeedInSeconds");
@@ -96,6 +99,7 @@ public class ArcherShootState : StateBehaviour
     {
         rb.angularVelocity = Vector3.zero;
         rb.velocity = Vector3.zero;
+        agent.destination = transform.position;
         inMotion.Value = false;
 
         if (targettedEnemy)

@@ -46,7 +46,7 @@ public class HPValueHandler : MonoBehaviour
         //decrease hp value by 1
         myHP.Value--;
         //instantiate the hurt particle as a child
-        Instantiate(hurtParticles, transform);
+        Instantiate(hurtParticles, transform.position + Vector3.up, Quaternion.identity, transform);
     }
 
     /// <summary>
@@ -60,7 +60,7 @@ public class HPValueHandler : MonoBehaviour
             //add 1 hp
             myHP.Value++;
             //instantiate the healing particle as a child
-            Instantiate(healParticles, transform);
+            Instantiate(healParticles, transform.position + Vector3.up, Quaternion.identity, transform);
         }
     }
 

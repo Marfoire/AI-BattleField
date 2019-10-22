@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using BehaviourMachine;
+using UnityEngine.AI;
 
 public class CharacterAttackState : StateBehaviour
 {
@@ -10,6 +11,7 @@ public class CharacterAttackState : StateBehaviour
     //shortform component getting for rigidbody and blackboard
     private Rigidbody rb;
     private Blackboard bb;
+    private NavMeshAgent agent;
 
     //blackboard vars for floats
     private FloatVar moveSpeed;//movement speed
@@ -40,6 +42,7 @@ public class CharacterAttackState : StateBehaviour
     {
         rb = GetComponent<Rigidbody>();
         bb = GetComponent<Blackboard>();
+        agent = GetComponent<NavMeshAgent>();
 
         moveSpeed = bb.GetFloatVar("moveSpeed");
         turnSpeed = bb.GetFloatVar("turnSpeed");
@@ -62,12 +65,12 @@ public class CharacterAttackState : StateBehaviour
         if (targettedEnemy.Value)
         {
             rb.angularVelocity = Vector3.zero;
-            rb.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, (targettedEnemy.Value.GetComponent<Rigidbody>().position - rb.position).normalized, turnSpeed.Value * Time.fixedDeltaTime, 0), Vector3.up);
+            rb.velocity = Vector3.zero;
 
             if (!attackRangeObject.targetsInRange.Contains(targettedEnemy.Value))
             {              
                 inMotion.Value = true;
-                rb.velocity = transform.forward * (moveSpeed.Value * Time.fixedDeltaTime);
+                agent.destination = targettedEnemy.Value.transform.position;
             }
             else
             {
@@ -137,6 +140,7 @@ public class CharacterAttackState : StateBehaviour
         rb.angularVelocity = Vector3.zero;
         rb.velocity = Vector3.zero;
         inMotion.Value = false;
+        agent.destination = transform.position;
         if (attackStartTime + attackSpeed.Value < Time.fixedTime)
         {
             attackStartTime = Time.fixedTime;

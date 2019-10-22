@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using BehaviourMachine;
+using UnityEngine.AI;
 
 public class CharacterAdvanceState : StateBehaviour
 {
@@ -12,11 +13,13 @@ public class CharacterAdvanceState : StateBehaviour
     private Blackboard bb;
     private FloatVar turnSpeed, moveSpeed;
     private BoolVar inMotion;
+    private NavMeshAgent agent;
 
     private void OnEnable()
     {
         rb = GetComponent<Rigidbody>();
         bb = GetComponent<Blackboard>();
+        agent = GetComponent<NavMeshAgent>();
 
         turnSpeed = bb.GetFloatVar("turnSpeed");
         moveSpeed = bb.GetFloatVar("moveSpeed");
@@ -33,16 +36,12 @@ public class CharacterAdvanceState : StateBehaviour
     public void MoveToGoal()
     {
         rb.angularVelocity = Vector3.zero;
-        if (rb.position != pointToTravelTo)
-        {
-            inMotion.Value = true;
-            rb.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, (pointToTravelTo - rb.position).normalized, turnSpeed.Value * Time.fixedDeltaTime, 0), Vector3.up);
-            rb.velocity = transform.forward * (moveSpeed.Value * Time.fixedDeltaTime);
-        }
+        rb.velocity = Vector3.zero;
+        agent.destination = pointToTravelTo;
 
         if (bb.GetBoolVar("atObjective"))
         {
-            if (GetComponent<Collider>().bounds.Contains(pointToTravelTo))
+            if (GetComponent<Collider>().bounds.Contains(pointToTravelTo + Vector3.up))
             {
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
@@ -67,7 +66,8 @@ public class CharacterAdvanceState : StateBehaviour
 
     public void GetAPositionToMoveTo()
     {
-        pointToTravelTo = CapturePointManager.GetRandomPositionOnObjective(rb.position);
+        pointToTravelTo = CapturePointManager.GetRandomPositionOnObjective(rb.position);        
+        inMotion.Value = true;
     }
 	
 

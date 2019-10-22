@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 445211959716786958}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.835, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7737149188755134054}
@@ -87,7 +87,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7737149188134684323}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.835, z: 0}
   m_LocalScale: {x: 166.19725, y: 166.19714, z: 166.19725}
   m_Children: []
   m_Father: {fileID: 7737149188755134054}
@@ -186,6 +186,7 @@ GameObject:
   - component: {fileID: 3462268339821366394}
   - component: {fileID: 6298003557813897764}
   - component: {fileID: 8674364150912097089}
+  - component: {fileID: -7531564517409092075}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -201,7 +202,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7737149188755134055}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.9, y: 1.35, z: 0}
+  m_LocalPosition: {x: -21.9, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7737149188135180931}
@@ -249,7 +250,7 @@ MonoBehaviour:
     m_EventID: 568027102
   - m_Destination: {fileID: 7737149188168706379}
     m_EventID: 1497637566
-  m_CachedInstanceID: -557034
+  m_CachedInstanceID: -249242
 --- !u!114 &7737149188168706379
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -273,7 +274,7 @@ MonoBehaviour:
     m_EventID: 1063056756
   - m_Destination: {fileID: 7737149188168706376}
     m_EventID: 608135493
-  m_CachedInstanceID: -557036
+  m_CachedInstanceID: -249244
   pointToTravelTo: {x: 0, y: 0, z: 0}
 --- !u!114 &7737149188168706376
 MonoBehaviour:
@@ -296,7 +297,7 @@ MonoBehaviour:
   m_Transitions:
   - m_Destination: {fileID: 7737149188168706421}
     m_EventID: 1063056756
-  m_CachedInstanceID: -557038
+  m_CachedInstanceID: -249246
 --- !u!114 &7737149188168706377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,7 +317,7 @@ MonoBehaviour:
   m_HideScript: 1
   m_Position: {x: 0, y: 0}
   m_Transitions: []
-  m_CachedInstanceID: -557040
+  m_CachedInstanceID: -249248
   m_Description: 
   m_EnabledState: {fileID: 0}
   m_LastEnabledState: {fileID: 0}
@@ -464,10 +465,32 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1.02
-  m_Height: 3.85
+  m_Radius: 1
+  m_Height: 3.45
   m_Direction: 1
-  m_Center: {x: 0, y: 1.1, z: 0}
+  m_Center: {x: 0, y: 1.74, z: 0}
+--- !u!195 &-7531564517409092075
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7737149188755134055}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 1
+  m_Speed: 7
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 3
 --- !u!1 &8314890456196645794
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,7 +517,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8314890456196645794}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.835, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7737149188755134054}

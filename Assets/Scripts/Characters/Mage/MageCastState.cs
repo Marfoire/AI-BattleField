@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using BehaviourMachine;
+using UnityEngine.AI;
 
 public class MageCastState : StateBehaviour
 {
     //shortform component getting for rigidbody and blackboard
     private Rigidbody rb;
     private Blackboard bb;
+    private NavMeshAgent agent;
 
     //blackboard vars for floats
     private FloatVar turnSpeed;//rotation speed
@@ -31,6 +33,7 @@ public class MageCastState : StateBehaviour
     {
         rb = GetComponent<Rigidbody>();
         bb = GetComponent<Blackboard>();
+        agent = GetComponent<NavMeshAgent>();
 
         turnSpeed = bb.GetFloatVar("turnSpeed");
         attackSpeed = bb.GetFloatVar("attackSpeedInSeconds");
@@ -75,6 +78,7 @@ public class MageCastState : StateBehaviour
         rb.angularVelocity = Vector3.zero;
         rb.velocity = Vector3.zero;
         inMotion.Value = false;
+        agent.destination = transform.position;
 
         if (targettedEnemy)
         {

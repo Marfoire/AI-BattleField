@@ -2,33 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArrowBehaviour : MonoBehaviour
+public class BeamBehaviour : MonoBehaviour
 {
-
     public string myTeamTag;
+
+    private List<GameObject> objectsHit = new List<GameObject>();
 
     public void GiveMeMyTagToIgnore(string tag)
     {
         myTeamTag = tag;
         GetComponent<Collider>().enabled = true;
+        Destroy(transform.parent.gameObject, 1);
     }
 
     private void FixedUpdate()
     {
-        GetComponent<Rigidbody>().rotation = Quaternion.LookRotation(GetComponent<Rigidbody>().velocity.normalized);
+        transform.parent.localScale += (Vector3.forward * 20 * Time.fixedDeltaTime);
     }
-
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag != myTeamTag && (other.isTrigger == false))
+        if (other.tag != myTeamTag && (other.isTrigger == false) && !objectsHit.Contains(other.gameObject))
         {
-            if(other.tag == "BlueTeam" || other.tag == "RedTeam")
+            if (other.tag == "BlueTeam" || other.tag == "RedTeam")
             {
                 other.GetComponent<HPValueHandler>().TakeDamage();
+                objectsHit.Add(other.gameObject);
             }
-            Destroy(gameObject);
         }
     }
-
 }

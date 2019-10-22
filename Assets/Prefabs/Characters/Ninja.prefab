@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 1920724544707702276}
   - component: {fileID: 1193691787853935621}
   - component: {fileID: 7967136206358194931}
+  - component: {fileID: 2525884766790797329}
   m_Layer: 0
   m_Name: Ninja
   m_TagString: Untagged
@@ -34,7 +35,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 69425129303196579}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.9, y: 1.35, z: 7.37}
+  m_LocalPosition: {x: -21.9, y: 0, z: 7.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 69425129789460295}
@@ -207,7 +208,7 @@ MonoBehaviour:
   m_HideScript: 1
   m_Position: {x: 0, y: 0}
   m_Transitions: []
-  m_CachedInstanceID: -595472
+  m_CachedInstanceID: -249578
   m_Description: 
   m_EnabledState: {fileID: 0}
   m_LastEnabledState: {fileID: 0}
@@ -236,10 +237,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1.02
-  m_Height: 3.85
+  m_Radius: 1
+  m_Height: 3.45
   m_Direction: 1
-  m_Center: {x: 0, y: 1.1, z: 0}
+  m_Center: {x: 0, y: 1.74, z: 0}
 --- !u!114 &2090063129807559101
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -265,7 +266,7 @@ MonoBehaviour:
     m_EventID: 1910665501
   - m_Destination: {fileID: 1920724544707702276}
     m_EventID: 708690825
-  m_CachedInstanceID: -595478
+  m_CachedInstanceID: -249584
   smokeEffect: {fileID: 0}
 --- !u!114 &1920724544707702276
 MonoBehaviour:
@@ -290,7 +291,7 @@ MonoBehaviour:
     m_EventID: 417753800
   - m_Destination: {fileID: 2090063129807559101}
     m_EventID: 721474678
-  m_CachedInstanceID: -595480
+  m_CachedInstanceID: -249586
 --- !u!114 &1193691787853935621
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -316,7 +317,7 @@ MonoBehaviour:
     m_EventID: 708690825
   - m_Destination: {fileID: 7967136206358194931}
     m_EventID: 1910665501
-  m_CachedInstanceID: -595482
+  m_CachedInstanceID: -249588
 --- !u!114 &7967136206358194931
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -342,8 +343,30 @@ MonoBehaviour:
     m_EventID: 721474678
   - m_Destination: {fileID: 1920724544707702276}
     m_EventID: 1174631713
-  m_CachedInstanceID: -595484
+  m_CachedInstanceID: -249590
   pointToTravelTo: {x: 0, y: 0, z: 0}
+--- !u!195 &2525884766790797329
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 69425129303196579}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 1
+  m_Speed: 7
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 3
 --- !u!1 &69425129789166439
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,7 +395,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 69425129789166439}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.835, z: 0}
   m_LocalScale: {x: 166.19725, y: 166.19714, z: 166.19725}
   m_Children: []
   m_Father: {fileID: 69425129303196578}
@@ -479,7 +502,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567217667259150929}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.835, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 69425129303196578}
@@ -538,7 +561,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2242172119668190963}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.835, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 69425129303196578}

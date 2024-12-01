@@ -17,6 +17,7 @@ public class PointScoreParticleBehaviour : MonoBehaviour
     void GraduallyRiseAndFade()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y + risingRate * Time.fixedDeltaTime, transform.position.z);
+        transform.forward = Camera.main.transform.forward;
         if (onBlueTeam)
         {           
             blueColour = new Color(blueColour.r, blueColour.g, blueColour.b, blueColour.a - fadeRate * Time.fixedDeltaTime);
